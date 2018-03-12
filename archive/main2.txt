@@ -1,0 +1,702 @@
+
+static void testPoint(void);
+static void testLigne(void);
+static void testCercle(void);
+static void testImageAllocStatique(void);
+static void testCopy();
+static void testImageAllocDynamique(void);
+static void testCreerFigures();
+static void testCompterSupprimerSi();
+static void testCompterSupprimerSiBis();
+static list<const Figure *> * testCompterSupprimerSiBUG();
+static list<const Figure *> * testCompterSupprimerSiNOBUG();
+
+int main2(void)
+{
+    int choix;
+    char c;
+
+    do
+    {
+        do
+        {
+            cout << "1 : Point " << endl;
+            cout << "2 : Ligne " << endl;
+            cout << "3 : Cercle " << endl;
+            cout << "4 : Figures allouees statiquement " << endl;
+            cout << "5 : Copies virtuelles dynamiques de figures " << endl;
+            cout << "6 : Figures allouees dynamiquement " << endl;
+            cout << "7 : Generation aleatoire de figures " << endl;
+            cout << "8 : Filtrage selon une condition : comptage et suppression superfielle " << endl;
+            cout << "9 : Filtrage selon une condition : comptage et suppression profonde " << endl;
+            cout << "10 : Filtrage BUG " << endl;
+            cout << "11 : Filtrage NOBUG " << endl;
+            cout << "Votre choix : ";
+            cin >> choix;
+        }
+        while (choix < 1 || choix > 11);
+
+        switch(choix)
+        {
+        case 1 :
+            testPoint();
+            break;
+        case 2 :
+            testLigne();
+            break;
+        case 3 :
+            testCercle();
+            break;
+        case 4 :
+            testImageAllocStatique();
+            break;
+        case 5 :
+            testCopy();
+            break;
+        case 6 :
+            testImageAllocDynamique();
+            break;
+        case 7 :
+            testCreerFigures();
+            break;
+
+        case 8 :
+            testCompterSupprimerSi();
+            break;
+        case 9 :
+            testCompterSupprimerSiBis();
+            break;
+        case 10 :
+            /**
+             * PLANTE car la liste retournée a contenu des variables locales de la pile
+             * qui ont été libérées automatiquement
+             */
+        {
+            list<const Figure *>  * figures = testCompterSupprimerSiBUG();
+            for_each(figures->begin(), figures->end(), affiche);
+        }
+        break;
+        case 11 :
+            /**
+             * NE PLANTE PAS car la liste retournée contient des variables allouées dynamiquement
+             */
+        {
+            list<const Figure *>  * figures = testCompterSupprimerSiNOBUG();
+            for_each(figures->begin(), figures->end(), affiche);
+        }
+        break;
+        default :
+            cout << "Choix invalide " << endl;
+            break;
+
+        }
+        cout << "Encore? : y/n";
+        cin >> c;
+    }
+    while(c != 'N' && c != 'n');
+
+
+    return 0;
+}
+
+void testPoint(void)
+{
+    Point x;
+    Point y(10, 20);
+    Point z = Point(y);
+
+    cout << x << y << z << endl;
+    z = x + y;
+    cout << z << endl;
+    z += y;
+    cout << z << endl;
+    z = x;
+    cout << z << endl;
+}
+
+void testLigne(void)
+{
+    Ligne l1 = Ligne(Point(10, 20), Point(16, 30));
+    l1.dessiner(cout);
+    cout << "Translation(5,8)" << endl;
+    //l1.deplacer(Point(5,8));
+    //l1.translation(5, 8, {l1.getOrigine(), l1.getExtremite()});
+    l1.dessiner(cout);
+    cout << l1 << endl;
+}
+
+/*void testCercle(void)
+{
+    Cercle c1 = Cercle (Point(10, 20), 22);
+    c1.dessiner();
+    cout << "Translation(5,8)" << endl;
+    c1.deplacer(Point(5,8));
+    c1.dessiner();
+    cout << c1 << endl;
+}
+
+void testImageAllocStatique(void)
+{
+    Ligne l1 = Ligne(Point(10, 20), Point(16, 30));
+    Cercle c1 = Cercle(Point (10, 20), 22);
+
+    Image i1 = Image();
+    cout << "image no 1 = ligne no 1 + cercle n° 1" << endl;
+    i1.ajouter(l1);
+    i1.ajouter(c1);
+    i1.dessiner();
+    cout << i1 << endl;
+
+    cout << "l1 / Translation(40,50)" << endl;
+    l1.deplacer(Point(40, 50));
+    i1.dessiner();
+
+    cout << "image no 1 += image no 1" << endl;
+    i1.ajouter(i1);
+    i1.dessiner();
+
+    cout << "c1 : Translation(11,13)" << endl;
+    c1.deplacer(Point(11, 13));
+    i1.dessiner();
+
+    cout << "image i1 : Translation(15,40)" << endl;
+    i1.deplacer(Point(15, 40));
+    i1.dessiner();
+
+    Image i2 = Image();
+    cout << "image no 2 = image no 1 + ligne no 1" << endl;
+    i2.ajouter(i1);
+    i2.ajouter(l1);
+    i2.dessiner();
+    cout << "image i2 : Translation(150,400)" << endl;
+    i2.deplacer(Point(150, 400));
+    i2.dessiner();
+
+    Image i3 = Image();
+    cout << "image no 2 = image no 1 + iamge no 2" << endl;
+    i3.ajouter(i1);
+    i3.ajouter(i2);
+    i3.dessiner();
+    cout << i3 << endl;
+}*/
+
+void testCopy()
+{
+    Cercle * c1 = new Cercle(Point(10, 20), 2);
+    Figure * fc1 = c1->copy();
+    cout << "c1 : " << *c1 << endl;
+    cout << "copie de c1 : " << endl;
+    /**
+    * la figure ne peut être qu'un cercle
+    * le static_cast est sûr
+    */
+    Cercle * c1Copy = static_cast<Cercle *>(fc1);
+    cout << *c1Copy << endl;
+
+    Ligne * l1 = new Ligne(Point(10, 20), Point(12, 44));
+    Figure * fl1 = l1->copy();
+    cout << "l1 : " << *l1 << endl;
+    cout << "copie de l1 : " << endl;
+    Ligne * l1Copy = static_cast<Ligne *>(fl1);
+    cout << *l1Copy << endl;
+
+    Image * i1 = new Image();
+    i1->ajouter(*c1);
+    i1->ajouter(*l1);
+    Figure * fi1 = i1->copy();
+    cout << "i1 : " << *i1 << endl;
+    cout << "i1Copy copie de i1 : " << endl;
+    Image * i1Copy = static_cast<Image *>(fi1);
+    cout << *i1Copy << endl;
+
+    Image * i2 = new Image();
+    i2->ajouter(*c1);
+    i2->ajouter(*i1);
+    Figure * fi2 = i2->copy();
+    cout << "i2 : " << *i2 << endl;
+    cout << "i2Copy copie de i2 : " << endl;
+    Image * i2Copy = static_cast<Image *>(fi2);
+    cout << *i2Copy << endl;
+
+    Image * i3 = new Image();
+    i3->ajouter(*i1);
+    i3->ajouter(*c1);
+    i3->ajouter(*i2);
+    i3->ajouter(*l1);
+    Figure * fi3 = i3->copy();
+    cout << "i3 : " << *i3 << endl;
+    cout << "i3Copy copie de i3 : " << endl;
+    Image * i3Copy = static_cast<Image *>(fi3);
+    cout << *i3Copy << endl;
+
+    /**
+    * test du constructeur de copie de la classe Image
+    */
+    Image * i4 = new Image(*i3);
+    cout << "Contructeur de copie : i4 copie de i3" << endl;
+    cout << *i4 << endl;
+
+    delete c1;
+    delete fc1; // ou delete c1Copy
+    delete l1;
+    delete l1Copy; // ou delete fl1
+    delete i1;
+    delete i1Copy; // ou delete fi1
+    delete i2;
+    delete fi2;  // ou delete i2Copy
+    delete i3;
+    delete i3Copy;  // ou delete fi3
+
+    cout << *i4 << endl;
+    delete i4;
+}
+
+void testImageAllocDynamique(void)
+{
+    Ligne * l1 = new Ligne(Point(10, 20), Point(16, 30));
+    Cercle * c1 = new Cercle(Point (10, 20), 22);
+
+    Image * i1 = new Image();
+    cout << "image no 1 = ligne no 1 + cercle n° 1" << endl;
+    i1->ajouter(*l1);
+    i1->ajouter(*c1);
+    i1->dessiner();
+    cout << *i1 << endl;
+
+    cout << "l1 / Translation(40,50)" << endl;
+    l1->deplacer(Point(40, 50));
+    i1->dessiner();
+
+    cout << "image no 1 += image no 1" << endl;
+    i1->ajouter(*i1);
+    i1->dessiner();
+
+    cout << "c1 : Translation(11,13)" << endl;
+    c1->deplacer(Point(11, 13));
+    i1->dessiner();
+
+    cout << "image i1 : Translation(15,40)" << endl;
+    i1->deplacer(Point(15, 40));
+    i1->dessiner();
+
+    Image * i2 = new Image();
+    cout << "image no 2 = image no 1 + ligne no 1" << endl;
+    i2->ajouter(*i1);
+    i2->ajouter(*l1);
+    i2->dessiner();
+    cout << "image i2 : Translation(150,400)" << endl;
+    i2->deplacer(Point(150, 400));
+    i2->dessiner();
+
+    Image * i3 = new Image();
+    cout << "image no 2 = image no 1 + iamge no 2" << endl;
+    i3->ajouter(*i1);
+    i3->ajouter(*i2);
+    i3->dessiner();
+    cout << *i3 << endl;
+
+    delete c1;
+    delete l1;
+    delete i1;
+    delete i2;
+    delete i3;
+}
+
+/**
+* Uilisation de la classe list de la STL
+*/
+void testCreerFigures()
+{
+    int nb;
+    cout << "nombre de figures : ";
+    cin >> nb;
+
+    list<const Figure *> figures = Filtrage::creerFigures(nb);
+    figures.push_back(new Cercle(Point(1000, 2000), 200));
+    figures.push_back(new Cercle(Point(10, 20), 9));
+    figures.push_back(new Cercle(Point(10, 20), 15));
+    figures.push_back(new Ligne(Point(10, 20), Point(12, 44)));
+    figures.push_back(new Ligne(Point(6, 7), Point(1, 21)));
+
+    Image * i1 = new Image();
+    i1->ajouter(*new Cercle(Point(8, 2), 1));
+    i1->ajouter(*new Ligne(Point(5, 11), Point(9, 11)));
+    figures.push_back(i1);
+
+    figures.push_back(new Cercle(Point(10, 20), 150));
+
+    Image * i2 = new Image();
+    i2->ajouter(*new Cercle(Point(1, 6), 4));
+    i2->ajouter(*new Cercle(Point(3, 11), 20));
+    i2->ajouter(*i1);
+    figures.push_back(i2);
+
+    Image * i3 = new Image();
+    i3->ajouter(*new Cercle(Point(13, 32), 21));
+    i3->ajouter(*new Cercle(Point(27, 12), 7));
+    i3->ajouter(*i2);
+    i3->ajouter(*new Ligne(Point(5, 11), Point(9, 11)));
+    figures.push_back(i3);
+
+    /**
+    * LE CODE SUIVANTE PLANTE!
+    * on libére une image de la liste en dehors de la gestion mémoire dédiée à liste
+    *
+    cout << "
+    suppression de l'image i1" << endl;
+    delete i1;
+    for_each(figures.begin(), figures.end(), affiche);
+    */
+
+    /**
+    * FOREACH ITERATORS
+    list<Figure *>::const_iterator it (figures.begin());
+    list<Figure *>::const_iterator end (figures.end());
+    for( ; it != end; ++it)
+    {
+    cout << (**it) << endl;
+                                                                                           }
+    */
+
+    /**
+    *  AVEC LE FONCTEUR affiche
+    */
+    for_each(figures.begin(), figures.end(), affiche);
+
+    Condition * conditions[] =
+    {
+        new EstPetite(300),
+        new EstUn(&Cercle::temoin),
+        new EstUn(&Ligne::temoin),
+        new EstUn(&Image::temoin),
+        new Non(new EstUn(&Cercle::temoin)),
+        new Non(new EstUn(&Ligne::temoin)),
+        new Et(new EstUn(&Cercle::temoin), new EstPetite(300))
+    };
+
+    for (unsigned int i = 0; i < sizeof(conditions)/sizeof(conditions[0]); i++)
+    {
+        int n = Filtrage::compterSi(figures, conditions[i], true);
+        cout << conditions[i]->toString() << " : " << n << "V + ";
+        cout << nb - n << "F" << endl;
+    }
+
+    cout << endl << "SUPPRESSION supperficielle des lignes" <<endl;
+    Filtrage::supprimerSi(figures, conditions[2]);
+    for_each(figures.begin(), figures.end(), affiche);
+
+    cout << endl << "SUPPRESSION profonde des lignes" <<endl;
+    Filtrage::supprimerSiProfond(figures, conditions[2]);
+    for_each(figures.begin(), figures.end(), affiche);
+
+    /**
+    * CTOR de copie profonde des listes de la STL
+    */
+    list<const Figure *> copy = list<const Figure *>(figures);
+    cout << "copie de la liste originale : " << endl;
+    for_each(copy.begin(), copy.end(), affiche);
+
+
+    cout << "destruction de liste originale : " << endl;
+    figures.clear();
+    if (figures.empty() == true)
+    {
+        cout << "La liste originale est vide." << endl;
+    }
+    cout << "Affichage de la liste originale : " << endl;
+    for_each(figures.begin(), figures.end(), affiche);
+    cout << "Aucune modification de la copie profonde de la liste originale : " << endl;
+    for_each(copy.begin(), copy.end(), affiche);
+}
+
+void testCompterSupprimerSi()
+{
+    list<const Figure *> figures = list<const Figure *>();
+
+    Cercle c1 = Cercle(Point(10, 20), 2);
+    Cercle c2 = Cercle(Point(10, 20), 9);
+    Cercle c3 = Cercle(Point(10, 20), 15);
+    figures.push_back(&c1);
+    figures.push_back(&c2);
+    figures.push_back(&c3);
+
+    Ligne l1 = Ligne(Point(10, 20), Point(12, 44));
+    Ligne l2 = Ligne(Point(6, 7), Point(1, 21));
+    figures.push_back(&l1);
+    figures.push_back(&l2);
+
+    Image i1 = Image();
+    i1.ajouter(c1);
+    i1.ajouter(l1);
+    figures.push_back(&i1);
+
+    Cercle c4 = Cercle(Point(10, 20), 150);
+    figures.push_back(&c4);
+
+    Image i2 = Image();
+    i2.ajouter(c2);
+    i2.ajouter(c4);
+    i2.ajouter(i1);
+    figures.push_back(&i2);
+
+    Image i3 = Image();
+    i3.ajouter(c3);
+    i3.ajouter(c4);
+    i3.ajouter(i2);
+    i3.ajouter(l2);
+    figures.push_back(&i3);
+
+    for_each(figures.begin(), figures.end(), affiche);
+
+    Condition * conditions[] =
+    {
+        new EstPetite(300),
+        new EstUn(&Cercle::temoin),
+        new EstUn(&Ligne::temoin),
+        new EstUn(&Image::temoin),
+        new Non(new EstUn(&Cercle::temoin)),
+        new Non(new EstUn(&Ligne::temoin)),
+        new Et(new EstUn(&Cercle::temoin), new EstPetite(300))
+    };
+
+    for (unsigned int i = 0; i < sizeof(conditions)/sizeof(conditions[0]); i++)
+    {
+        int n = Filtrage::compterSi(figures, conditions[i], true);
+        cout << conditions[i]->toString() << " : " << Filtrage::compterSi(figures, conditions[i], true) << "V + ";
+        cout <<  figures.size() - n << "F" << endl;
+    }
+
+    cout << endl << "SUPPRESSION superficielle des cercles" <<endl;
+    if (Filtrage::supprimerSi(figures, conditions[1]) == true)
+    {
+        cout << "Supprimer sous condition SUCCES" << endl;
+        for_each(figures.begin(), figures.end(), affiche);
+    }
+
+    cout << endl << "SUPPRESSION profonde des cercles" <<endl;
+    if (Filtrage::supprimerSiProfond(figures, conditions[1]) == true)
+    {
+        cout << "Supprimer sous condition SUCCES" << endl;
+        for_each(figures.begin(), figures.end(), affiche);
+    }
+}
+
+void testCompterSupprimerSiBis()
+{
+    list<const Figure *> figures = list<const Figure *>();
+
+    Cercle c1 = Cercle(Point(10, 20), 2);
+    Cercle c2 = Cercle(Point(10, 20), 9);
+    Cercle c3 = Cercle(Point(10, 20), 15);
+    figures.push_back(&c1);
+    figures.push_back(&c2);
+    figures.push_back(&c3);
+
+    Ligne l1 = Ligne(Point(10, 20), Point(12, 44));
+    Ligne l2 = Ligne(Point(6, 7), Point(1, 21));
+    figures.push_back(&l1);
+    figures.push_back(&l2);
+
+    Image i1 = Image();
+    i1.ajouter(c1);
+    i1.ajouter(l1);
+    figures.push_back(&i1);
+
+    Cercle c4 = Cercle(Point(10, 20), 150);
+    figures.push_back(&c4);
+
+    Image i2 = Image();
+    i2.ajouter(c2);
+    i2.ajouter(c4);
+    i2.ajouter(i1);
+    figures.push_back(&i2);
+
+    Image i3 = Image();
+    i3.ajouter(c3);
+    i3.ajouter(c4);
+    i3.ajouter(i2);
+    i3.ajouter(l2);
+    figures.push_back(&i3);
+
+    for_each(figures.begin(), figures.end(), affiche);
+
+    Condition * conditions[] =
+    {
+        new EstPetite(300),
+        new EstUn(&Cercle::temoin),
+        new EstUn(&Ligne::temoin),
+        new EstUn(&Image::temoin),
+        new Non(new EstUn(&Cercle::temoin)),
+        new Non(new EstUn(&Ligne::temoin)),
+        new Et(new EstUn(&Cercle::temoin), new EstPetite(300))
+    };
+
+    for (unsigned int i = 0; i < sizeof(conditions)/sizeof(conditions[0]); i++)
+    {
+        int n = Filtrage::compterSi(figures, conditions[i], true);
+        cout << conditions[i]->toString() << " : " << Filtrage::compterSi(figures, conditions[i], true) << "V + ";
+        cout <<  figures.size() - n << "F" << endl;
+    }
+
+    cout << endl << "SUPPRESSION superficielle des cercles" <<endl;
+    if (Filtrage::supprimerSiBis(figures, conditions[1]) == true)
+    {
+        cout << "Supprimer sous condition SUCCES" << endl;
+        for_each(figures.begin(), figures.end(), affiche);
+    }
+
+    cout << endl << "SUPPRESSION profonde des cercles" <<endl;
+    if (Filtrage::supprimerSiProfondBis(figures, conditions[1]) == true)
+    {
+        cout << "Supprimer sous condition SUCCES" << endl;
+        for_each(figures.begin(), figures.end(), affiche);
+    }
+}
+
+
+/**
+* PLANTAGE dû à une méconnaissance de la gestion mémoire!
+* Tout se passe convenablement dans le contexte de la fonction : les variables locales y sont disponibles.
+* La liste contient des variables locales qui ne sont plus disponibles
+* dans le contexte de l'appelant.
+* Or cette liste est retournée de manière illogique dans le contexte de l'appelant.
+* Le plantage a lieu dans le contexte de l'appelant.
+* A l'exécution le message PURE VIRTUAL METHOD CALLED est affiché.
+*/
+list<const Figure *> * testCompterSupprimerSiBUG()
+{
+    list<const Figure *> * figures =  new list<const Figure *>();
+
+    Cercle c1 = Cercle(Point(10, 20), 2);
+    Cercle c2 = Cercle(Point(10, 20), 9);
+    Cercle c3 = Cercle(Point(10, 20), 15);
+    figures->push_back(&c1);
+    figures->push_back(&c2);
+    figures->push_back(&c3);
+
+    Ligne l1 = Ligne(Point(10, 20), Point(12, 44));
+    Ligne l2 = Ligne(Point(6, 7), Point(1, 21));
+    figures->push_back(&l1);
+    figures->push_back(&l2);
+
+    Image i1 = Image();
+    i1.ajouter(c1);
+    i1.ajouter(l1);
+    figures->push_back(&i1);
+
+    Cercle c4 = Cercle(Point(10, 20), 150);
+    figures->push_back(&c4);
+
+    Image i2 = Image();
+    i2.ajouter(c2);
+    i2.ajouter(c4);
+    i2.ajouter(i1);
+    figures->push_back(&i2);
+
+    Image i3 = Image();
+    i3.ajouter(c3);
+    i3.ajouter(c4);
+    i3.ajouter(i2);
+    i3.ajouter(l2);
+    figures->push_back(&i3);
+
+    for_each(figures->begin(), figures->end(), affiche);
+
+    Condition * conditions[] =
+    {
+        new EstPetite(300),
+        new EstUn(&Cercle::temoin),
+        new EstUn(&Ligne::temoin),
+        new EstUn(&Image::temoin),
+        new Non(new EstUn(&Cercle::temoin)),
+        new Non(new EstUn(&Ligne::temoin)),
+        new Et(new EstUn(&Cercle::temoin), new EstPetite(300))
+    };
+
+    for (unsigned int i = 0; i < sizeof(conditions)/sizeof(conditions[0]); i++)
+    {
+        int n = Filtrage::compterSi(*figures, conditions[i], true);
+        cout << conditions[i]->toString() << " : " << Filtrage::compterSi(*figures, conditions[i], true) << "V + ";
+        cout <<  figures->size() - n << "F" << endl;
+    }
+
+    cout << endl << "SUPPRESSION supperficielle des cercles" <<endl;
+    Filtrage::supprimerSi(*figures, conditions[1]);
+    for_each(figures->begin(), figures->end(), affiche);
+
+    cout << endl << "SUPPRESSION profonde des cercles" <<endl;
+    Filtrage::supprimerSiProfond(*figures, conditions[1]);
+    for_each(figures->begin(), figures->end(), affiche);
+
+    return figures;
+}
+
+
+
+list<const Figure *> * testCompterSupprimerSiNOBUG()
+{
+    list<const Figure *> * figures =  new list<const Figure *>();
+
+    Cercle * c1 = new Cercle(Point(10, 20), 2);
+    Cercle * c2 = new Cercle(Point(10, 20), 9);
+    Cercle * c3 = new Cercle(Point(10, 20), 15);
+    figures->push_back(c1);
+    figures->push_back(c2);
+    figures->push_back(c3);
+
+    Ligne * l1 = new Ligne(Point(10, 20), Point(12, 44));
+    Ligne * l2 = new Ligne(Point(6, 7), Point(1, 21));
+    figures->push_back(l1);
+    figures->push_back(l2);
+
+    Image * i1 = new Image();
+    i1->ajouter(*c1);
+    i1->ajouter(*l1);
+    figures->push_back(i1);
+
+    Cercle * c4 = new Cercle(Point(10, 20), 150);
+    figures->push_back(c4);
+
+    Image * i2 = new Image();
+    i2->ajouter(*c2);
+    i2->ajouter(*c4);
+    i2->ajouter(*i1);
+    figures->push_back(i2);
+
+    Image * i3 = new Image();
+    i3->ajouter(*c3);
+    i3->ajouter(*c4);
+    i3->ajouter(*i2);
+    i3->ajouter(*l2);
+    figures->push_back(i3);
+
+    for_each(figures->begin(), figures->end(), affiche);
+
+    Condition * conditions[] =
+    {
+        new EstPetite(300),
+        new EstUn(&Cercle::temoin),
+        new EstUn(&Ligne::temoin),
+        new EstUn(&Image::temoin),
+        new Non(new EstUn(&Cercle::temoin)),
+        new Non(new EstUn(&Ligne::temoin)),
+        new Et(new EstUn(&Cercle::temoin), new EstPetite(300))
+    };
+
+    for (unsigned int i = 0; i < sizeof(conditions)/sizeof(conditions[0]); i++)
+    {
+        int n = Filtrage::compterSi(*figures, conditions[i], true);
+        cout << conditions[i]->toString() << " : " << Filtrage::compterSi(*figures, conditions[i], true) << "V + ";
+        cout <<  figures->size() - n << "F" << endl;
+    }
+
+    cout << endl << "SUPPRESSION supperficielle des cercles" <<endl;
+    Filtrage::supprimerSi(*figures, conditions[1]);
+    for_each(figures->begin(), figures->end(), affiche);
+
+    cout << endl << "SUPPRESSION profonde des cercles" <<endl;
+    Filtrage::supprimerSiProfond(*figures, conditions[1]);
+    for_each(figures->begin(), figures->end(), affiche);
+
+    return figures;
+}
