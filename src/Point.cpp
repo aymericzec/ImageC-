@@ -23,7 +23,7 @@ void Point::Point::setX(int a)
 
 int Point::Point::getY() const
 {
-    return x;
+    return y;
 }
 
 void Point::Point::setY(int b)

@@ -9,14 +9,27 @@
  *
  */
  
-
 #include <cmath>
 #include "Line.hpp"
+#include <list>
+#include "Matrice2D.hpp"
+
+list<Point *> Line::getPoints() {
+	return {&_origine};
+}
 
 /**
  * La ligne témoin est une variable de classe
  */
 Line Line::temoin = Line(Point(0,0), Point(1,1));
+
+/**
+ * Fonction virtuelle de copie
+ */
+Line * Line::copy() const
+{
+    return new Line(this->_origine, this->_extremite);
+}
 
 Point Line::getOrigin() const
 {
@@ -29,28 +42,16 @@ Point Line::getExtremity() const
 }
 
 /**
- * Fonction virtuelle de copie
- */
-Figure * Line::copy() const
-{
-    return new Line(this->_origine, this->_extremite);
-}
-
-/**
- * Déplacement-translation de valeur le point p
- */
-void Line::translation(const Point & p)
-{
-    _origine += p;
-    _extremite += p;
-}
-
-/**
  * Le dessin se limite à un affichage
  */
-void Line::dessiner(ostream & os) const
+void Line::draw(ostream & os) const
 {
     os << *this << endl;;
+}
+
+void Line::print(ostream & os) const
+{
+    os << "Ligne (" << _origine << ", " << _extremite << ")" << endl;
 }
 
 /**
@@ -69,12 +70,12 @@ double Line::surface() const
     return distance * epaisseur;
 }
 
-double Line::perimetre() const 
+double Line::perimeter() const 
 {
 	return surface();
 }
 
-double Line::distance_origine(const Point & p) const
+double Line::origineDistance(const Point & p) const
 {
 	double distance = sqrt( (_origine.getX() - p.getX()) * (_origine.getX() - p.getX())
                             + (_origine.getY() - p.getY()) * (_origine.getY() - p.getY())); 
@@ -82,7 +83,4 @@ double Line::distance_origine(const Point & p) const
     return distance;
 }
 
-void Line::afficher(ostream & os) const
-{
-    os << "ligne (" << _origine << ", " << _extremite << ")" << endl;
-}
+

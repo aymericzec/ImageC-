@@ -1,9 +1,11 @@
 #include "Matrice2D.hpp"
 #include <cmath>
+#include <list>
 #include "Line.hpp"
+#include "Point.hpp"
 
 
-void mulMatrice(double matrice [][2], const Point & p)
+void mulMatrice(double matrice [][2], Point & p)
 {
 	double result[2][1];
 	
@@ -14,14 +16,17 @@ void mulMatrice(double matrice [][2], const Point & p)
 	p.setY(result[1][0]);
 }
 
-
-void translation(const Point & p, Figure & figure)
+void Matrice2D::translation(const Point & p, list<Point *> & points)
 {
-	figure.deplacer(p);
-	cout << "ok" << endl;
+	for(auto point : points) 
+	{
+		cout << point->getX() << " Y" << point->getY() << endl;
+		point->setX(point->getX() + p.getX());
+		point->setY(point->getY() + p.getY());
+	}
 }
 
-void homothety(const Point & p, Figure & figure)
+void Matrice2D::homothety(const Point & p, list<Point *> & points)
 {
 	double matrice[2][2];
 	
@@ -30,14 +35,14 @@ void homothety(const Point & p, Figure & figure)
 	matrice[1][0] = p.getY();
 	matrice[1][1] = 1;
 
-	for(auto n : figure.getPoints()) 
+	for(auto n : points) 
 	{
 		cout << n->getX() << endl;
 		mulMatrice(matrice, *n);
 	}
 }
 
-void Matrice2D::rotation(const double angle, initializer_list<Point> & p)
+void Matrice2D::rotation(const double angle, list<Point *> & points)
 {
 	double matrice[2][2];
 	
@@ -46,13 +51,13 @@ void Matrice2D::rotation(const double angle, initializer_list<Point> & p)
 	matrice[1][0] = sin(angle);
 	matrice[1][1] = cos(angle);
 	
-	for(auto n : p) 
+	for(auto n : points) 
 	{
-		mulMatrice(matrice, n);
+		mulMatrice(matrice, *n);
 	}
 }
 
-void Matrice2D::axialSymmetryX(initializer_list<Point> & p)
+void Matrice2D::axialSymmetryX(list<Point *> & points)
 {
 	double matrice[2][2];
 	
@@ -61,13 +66,13 @@ void Matrice2D::axialSymmetryX(initializer_list<Point> & p)
 	matrice[1][0] = 0;
 	matrice[1][1] = -1;
 	
-	for(auto n : p) 
+	for(auto n : points) 
 	{
-		mulMatrice(matrice, n);
+		mulMatrice(matrice, *n);
 	}
 }
 
-void Matrice2D::axialSymmetryY(initializer_list<Point> & p)
+void Matrice2D::axialSymmetryY(list<Point *> & points)
 {
 	double matrice[2][2];
 	
@@ -76,13 +81,13 @@ void Matrice2D::axialSymmetryY(initializer_list<Point> & p)
 	matrice[1][0] = 0;
 	matrice[1][1] = 1;
 	
-	for(auto n : p) 
+	for(auto n : points) 
 	{
-		mulMatrice(matrice, n);
+		mulMatrice(matrice, *n);
 	}
 }
 
-void Matrice2D::centralSymmetry(initializer_list<Point> & p)
+void Matrice2D::centralSymmetry(list<Point *> & points)
 {
 	double matrice[2][2];
 	
@@ -91,8 +96,8 @@ void Matrice2D::centralSymmetry(initializer_list<Point> & p)
 	matrice[1][0] = 0;
 	matrice[1][1] = -1;
 	
-	for(auto n : p) 
+	for(auto n : points) 
 	{
-		mulMatrice(matrice, n);
+		mulMatrice(matrice, *n);
 	}
 }

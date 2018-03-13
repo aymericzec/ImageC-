@@ -1,4 +1,38 @@
 
+/**
+ * Un foncteur du conteneur de figures
+ */
+extern void affiche(const Figure * f);
+
+
+/**
+ * Un foncteur du conteneur de figures
+ */
+void affiche(const Figure * f)
+{
+    f->afficher(cout);
+    cout << endl;
+}
+
+/**
+ * Conversion d'un entier en un objet string
+ */
+string intToString(int n)
+{
+    /**
+     * créer un flux de sort
+     */
+    ostringstream os;
+    /**
+     * écrire un nombre dans le flux
+     */
+    os << n;
+    /**
+     * récupérer une chaîne de caractères
+     */
+    return os.str();
+}
+
 static void testPoint(void);
 static void testLigne(void);
 static void testCercle(void);

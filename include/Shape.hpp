@@ -15,7 +15,9 @@ using namespace std;
 
 // classe abstraite représentant une figure
 class Shape {
-
+private:
+	virtual list<Point *> getPoints() = 0;
+	
 public:
     /**
      * Il est impossible de rendre les constructeurs de copie virtuels.
@@ -23,14 +25,14 @@ public:
      * la simulation de constructeurs virtuels.
      */
     virtual Shape * copy() const = 0;
-    virtual ~Shape() { };
+    virtual ~Shape () { };
     
     virtual void translation(const Point & p);
 	virtual void homothety(const Point & p);
 	virtual void rotation(const double radius);
-	virtual void centralSymmetry (initializer_list<Point> & p);
-	virtual void axialSymmetryX(initializer_list<Point> & p);
-	virtual void axialSymmetryY(initializer_list<Point> & p);
+	virtual void centralSymmetry ();
+	virtual void axialSymmetryX();
+	virtual void axialSymmetryY();
 	
 	virtual void draw (ostream & os = cout) const = 0;
     virtual void print(ostream & os) const = 0;
@@ -44,7 +46,4 @@ public:
 
     friend ostream & operator<< (ostream & os, const Shape & shape);
 };
-
-
-
 #endif

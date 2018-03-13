@@ -1,55 +1,41 @@
 #include <sstream>
-#include <list>
 #include <algorithm>
-#include "ligne.hpp"
-#include "matrice2D.hpp"
+#include "Line.hpp"
+#include "Matrice2D.hpp"
+#include "Image.hpp"
 
 using namespace std;
 
-/**
- * Un foncteur du conteneur de figures
- */
-extern void affiche(const Figure * f);
+void testLine () {
+	Line l1 = Line(Point(10, 20), Point(16, 30));
+    cout << "Translation(5,8)" << endl;
+    l1.translation(Point(5,8));
+    cout << l1 << endl;
 
+    Point p = l1.getOrigin();
+    cout << "Homothetie " << p << endl;
+    l1.homothety(p);
 
-/**
- * Un foncteur du conteneur de figures
- */
-void affiche(const Figure * f)
-{
-    f->afficher(cout);
-    cout << endl;
+	double radius = 3.18;
+    cout << "Rotation " << radius << endl;
+    l1.rotation(radius);
+    cout << l1 << endl;
+    
+    l1.centralSymmetry();
+    cout << l1 << endl;
 }
 
-/**
- * Conversion d'un entier en un objet string
- */
-string intToString(int n)
-{
-    /**
-     * créer un flux de sort
-     */
-    ostringstream os;
-    /**
-     * écrire un nombre dans le flux
-     */
-    os << n;
-    /**
-     * récupérer une chaîne de caractères
-     */
-    return os.str();
+void testImage () {
+	Image image;
+	Line l1 = Line(Point(0,0), Point(15,15));
+	
+	image.add(l1);
+	image.draw();
+	image.translation(Point(15,15));
+	image.draw();
 }
 
 int main (void) {
-    Ligne l1 = Ligne(Point(10, 20), Point(16, 30));
-    l1.dessiner(cout);
-    cout << "Translation(5,8)" << endl;
-    //l1.deplacer(Point(5,8));
-    
-    //initializer_list<Point &> p = {l1.getOrigine(), l1.getExtremite()};
-    Point p = l1.getOrigine();
-    //translation(p, l1);
-    homothetie(p, l1);
-    //l1.dessiner(cout);
-    cout << l1 << endl;
+	testImage();
+    return 0;
 }

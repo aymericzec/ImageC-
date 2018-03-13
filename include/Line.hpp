@@ -9,11 +9,13 @@
 #define __LIGNE__
 #include "Shape.hpp"
 
-class Line: public Figure {
+class Line : public Shape {
 
+private:
+	virtual list<Point *> getPoints();
 
 public:
-    static Ligne temoin;
+    static Line temoin;
 
 	Line(const Point & a , const Point & b)
         : _origine(a), _extremite(b) { }
@@ -30,13 +32,6 @@ public:
     
     Point getOrigin() const;
     Point getExtremity() const;
-
-    virtual void translation(const Point & p);
-	virtual void homothety(const Point & p);
-	virtual void rotation(const double radius);
-	virtual void centralSymmetry (initializer_list<Point> & p);
-	virtual void axialSymmetryX(initializer_list<Point> & p);
-	virtual void axialSymmetryY(initializer_list<Point> & p);
 
 	virtual void draw(ostream & os = cout) const;
 	virtual void print(ostream & os = cout) const;
