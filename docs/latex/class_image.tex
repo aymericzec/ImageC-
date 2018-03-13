@@ -1,0 +1,146 @@
+\hypertarget{class_image}{}\section{Image Class Reference}
+\label{class_image}\index{Image@{Image}}
+
+
+{\ttfamily \#include $<$image.\+hpp$>$}
+
+
+
+Inheritance diagram for Image\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=124pt]{class_image__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Image\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{class_image__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ {\bfseries I\+M\+A\+G\+E\+\_\+\+M\+AX} = 50
+ \}\hypertarget{class_image_a1d78dd24522ac145e075f5fd6aad5067}{}\label{class_image_a1d78dd24522ac145e075f5fd6aad5067}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Image} (const \hyperlink{class_point}{Point} \&a=\hyperlink{class_point}{Point}(0, 0))\hypertarget{class_image_a054df7fc4b3ac77b15cac04599af8213}{}\label{class_image_a054df7fc4b3ac77b15cac04599af8213}
+
+\item 
+\hyperlink{class_image_a34410a36b132ab597a8878d45facc89a}{Image} (const \hyperlink{class_image}{Image} \&image)
+\item 
+virtual Figure $\ast$ \hyperlink{class_image_ae80b4ae48c105f76b7d142e12c4bf3dc}{copy} () const 
+\item 
+virtual \hyperlink{class_image_a46561cd7dcf7e203e9579737e8ace4eb}{$\sim$\+Image} ()
+\item 
+Figure $\ast$ {\bfseries get\+Figure} (int index) const \hypertarget{class_image_a18b25740f2082c2f4095f4738c839997}{}\label{class_image_a18b25740f2082c2f4095f4738c839997}
+
+\item 
+void {\bfseries set\+Figure} (int index, Figure $\ast$figure)\hypertarget{class_image_a1051bd8ae63eabeeeb6f37aa048c15e6}{}\label{class_image_a1051bd8ae63eabeeeb6f37aa048c15e6}
+
+\item 
+int {\bfseries get\+Nombre} () const \hypertarget{class_image_a2b0813ba90870ac3cfae515406cd5afc}{}\label{class_image_a2b0813ba90870ac3cfae515406cd5afc}
+
+\item 
+\hyperlink{class_point}{Point} {\bfseries get\+Origine} () const \hypertarget{class_image_ac057ace4fea5e06b71eb6996cc49ec02}{}\label{class_image_ac057ace4fea5e06b71eb6996cc49ec02}
+
+\item 
+void \hyperlink{class_image_acac393f8fe4d375f1d7ca2340517824b}{ajouter} (const Figure \&f)
+\item 
+virtual list$<$ \hyperlink{class_point}{Point} $\ast$ $>$ {\bfseries get\+Points} () const \hypertarget{class_image_a263966190234ac1c38a716356f529b2e}{}\label{class_image_a263966190234ac1c38a716356f529b2e}
+
+\item 
+virtual void \hyperlink{class_image_a50ead8205b30251a11a98da86ad1bfad}{deplacer} (const \hyperlink{class_point}{Point} \&trans)
+\item 
+virtual void \hyperlink{class_image_a4f2367997cf04d6d9f104178075b8d44}{dessiner} (ostream \&os=cout) const 
+\item 
+virtual double {\bfseries surface} () const \hypertarget{class_image_a735711df9697beb868ccb9dd1dfce0fb}{}\label{class_image_a735711df9697beb868ccb9dd1dfce0fb}
+
+\item 
+virtual double {\bfseries perimetre} () const \hypertarget{class_image_a6bcc6b782428b4407fa26dab32f05d34}{}\label{class_image_a6bcc6b782428b4407fa26dab32f05d34}
+
+\item 
+virtual double {\bfseries distance\+\_\+origine} (const \hyperlink{class_point}{Point} \&p) const \hypertarget{class_image_af2533395749e8976cab616a65cf512d1}{}\label{class_image_af2533395749e8976cab616a65cf512d1}
+
+\item 
+virtual void {\bfseries afficher} (ostream \&os=cout) const \hypertarget{class_image_a3d26f1178af2563a90b51ad1babe8ee0}{}\label{class_image_a3d26f1178af2563a90b51ad1babe8ee0}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_image}{Image} \hyperlink{class_image_a19d374f4783eaa0126721ac0c4d472c8}{temoin} = \hyperlink{class_image}{Image}()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Politique uniforme d\textquotesingle{}allocation mémoire Toutes les figures sont allouées dynamiquement Une image les mémorise via un tableau de pointeurs de figures 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Image@{Image}!Image@{Image}}
+\index{Image@{Image}!Image@{Image}}
+\subsubsection[{\texorpdfstring{Image(const Image \&image)}{Image(const Image &image)}}]{\setlength{\rightskip}{0pt plus 5cm}Image\+::\+Image (
+\begin{DoxyParamCaption}
+\item[{const {\bf Image} \&}]{image}
+\end{DoxyParamCaption}
+)}\hypertarget{class_image_a34410a36b132ab597a8878d45facc89a}{}\label{class_image_a34410a36b132ab597a8878d45facc89a}
+contructeur de copie profonde \index{Image@{Image}!````~Image@{$\sim$\+Image}}
+\index{````~Image@{$\sim$\+Image}!Image@{Image}}
+\subsubsection[{\texorpdfstring{$\sim$\+Image()}{~Image()}}]{\setlength{\rightskip}{0pt plus 5cm}virtual Image\+::$\sim$\+Image (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\hypertarget{class_image_a46561cd7dcf7e203e9579737e8ace4eb}{}\label{class_image_a46561cd7dcf7e203e9579737e8ace4eb}
+B\+UG si partage d\textquotesingle{}instances allouées dynamiquement ==$>$ IL F\+A\+UT I\+M\+P\+L\+E\+M\+E\+N\+T\+ER D\+ES C\+O\+M\+P\+T\+E\+U\+RS DE R\+E\+F\+E\+R\+E\+N\+C\+ES Dans l\textquotesingle{}implémentation proposée, les instances sont recopiées lorsqu\textquotesingle{}elles sont ajoutées dans le tableau de figures. Il n\textquotesingle{}y a pas de partage d\textquotesingle{}instances. Dans la méthode ajouter on a \+: \+\_\+tableau\mbox{[}\+\_\+nombre++\mbox{]} = ((Figure $\ast$) \&f)-\/$>$\hyperlink{class_image_ae80b4ae48c105f76b7d142e12c4bf3dc}{copy()};
+
+\subsection{Member Function Documentation}
+\index{Image@{Image}!ajouter@{ajouter}}
+\index{ajouter@{ajouter}!Image@{Image}}
+\subsubsection[{\texorpdfstring{ajouter(const Figure \&f)}{ajouter(const Figure &f)}}]{\setlength{\rightskip}{0pt plus 5cm}void Image\+::ajouter (
+\begin{DoxyParamCaption}
+\item[{const Figure \&}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{class_image_acac393f8fe4d375f1d7ca2340517824b}{}\label{class_image_acac393f8fe4d375f1d7ca2340517824b}
+ajout d\textquotesingle{} une figure à une image Code pour du partage d\textquotesingle{}instances allouées dynamiquement nécessite des compteurs de référence pour leur libération mémoire en C ==$>$ A\+B\+A\+N\+D\+ON \+\_\+tableau\mbox{[}\+\_\+nombre++\mbox{]} = (Figure $\ast$) (\&f); en C++\+: du const\+\_\+cast \+\_\+tableau\mbox{[}\+\_\+nombre++\mbox{]} = const\+\_\+cast$<$\+Figure $\ast$$>$ (\&f);\index{Image@{Image}!copy@{copy}}
+\index{copy@{copy}!Image@{Image}}
+\subsubsection[{\texorpdfstring{copy() const }{copy() const }}]{\setlength{\rightskip}{0pt plus 5cm}Figure $\ast$ Image\+::copy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_image_ae80b4ae48c105f76b7d142e12c4bf3dc}{}\label{class_image_ae80b4ae48c105f76b7d142e12c4bf3dc}
+Fonction virtuelle de copie \index{Image@{Image}!deplacer@{deplacer}}
+\index{deplacer@{deplacer}!Image@{Image}}
+\subsubsection[{\texorpdfstring{deplacer(const Point \&trans)}{deplacer(const Point &trans)}}]{\setlength{\rightskip}{0pt plus 5cm}void Image\+::deplacer (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{p}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_image_a50ead8205b30251a11a98da86ad1bfad}{}\label{class_image_a50ead8205b30251a11a98da86ad1bfad}
+Déplacement-\/translation de valeur le point p toutes les figures de l\textquotesingle{}image sont également déplacées \index{Image@{Image}!dessiner@{dessiner}}
+\index{dessiner@{dessiner}!Image@{Image}}
+\subsubsection[{\texorpdfstring{dessiner(ostream \&os=cout) const }{dessiner(ostream &os=cout) const }}]{\setlength{\rightskip}{0pt plus 5cm}void Image\+::dessiner (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{os = {\ttfamily cout}}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_image_a4f2367997cf04d6d9f104178075b8d44}{}\label{class_image_a4f2367997cf04d6d9f104178075b8d44}
+Le dessin se limite à un affichage 
+
+\subsection{Member Data Documentation}
+\index{Image@{Image}!temoin@{temoin}}
+\index{temoin@{temoin}!Image@{Image}}
+\subsubsection[{\texorpdfstring{temoin}{temoin}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Image} Image\+::temoin = {\bf Image}()\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_image_a19d374f4783eaa0126721ac0c4d472c8}{}\label{class_image_a19d374f4783eaa0126721ac0c4d472c8}
+L\textquotesingle{}image témoin est une variable de classe 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+archive/image.\+hpp\item 
+archive/image.\+cpp\end{DoxyCompactItemize}

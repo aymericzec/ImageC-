@@ -1,0 +1,108 @@
+\hypertarget{class_rectangle}{}\section{Rectangle Class Reference}
+\label{class_rectangle}\index{Rectangle@{Rectangle}}
+
+
+Inheritance diagram for Rectangle\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=141pt]{class_rectangle__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Rectangle\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{class_rectangle__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Rectangle} (const \hyperlink{class_point}{Point} \&a, const \hyperlink{class_point}{Point} \&b)\hypertarget{class_rectangle_a624f003522cefccbf7d7cbbb25484319}{}\label{class_rectangle_a624f003522cefccbf7d7cbbb25484319}
+
+\item 
+\hyperlink{class_point}{Point} {\bfseries getA} () const \hypertarget{class_rectangle_a2f4d4c5ae1fa57ffc1fd1db3edcd00b1}{}\label{class_rectangle_a2f4d4c5ae1fa57ffc1fd1db3edcd00b1}
+
+\item 
+\hyperlink{class_point}{Point} {\bfseries getB} () const \hypertarget{class_rectangle_ab50635c7b64c91fc6a68890db61bfae6}{}\label{class_rectangle_ab50635c7b64c91fc6a68890db61bfae6}
+
+\item 
+\hyperlink{class_point}{Point} {\bfseries getC} () const \hypertarget{class_rectangle_a5339db7a9327c904ccc6df350212cac4}{}\label{class_rectangle_a5339db7a9327c904ccc6df350212cac4}
+
+\item 
+\hyperlink{class_point}{Point} {\bfseries getD} () const \hypertarget{class_rectangle_a10f2ecee98b54ac6d9b23a15449a1bd5}{}\label{class_rectangle_a10f2ecee98b54ac6d9b23a15449a1bd5}
+
+\item 
+virtual Figure $\ast$ \hyperlink{class_rectangle_a79aa738432ccb76ac84173bec4c31b7c}{copy} () const 
+\item 
+virtual list$<$ \hyperlink{class_point}{Point} $\ast$ $>$ {\bfseries get\+Points} () const \hypertarget{class_rectangle_a0db01df72e63eebc2c175f58f966cf94}{}\label{class_rectangle_a0db01df72e63eebc2c175f58f966cf94}
+
+\item 
+virtual void \hyperlink{class_rectangle_acfa7c56f2c0a087e908c4f7bc542c826}{deplacer} (const \hyperlink{class_point}{Point} \&trans)
+\item 
+virtual void \hyperlink{class_rectangle_a853147554cb4938530f75f83cf43b6c4}{dessiner} (ostream \&os=cout) const 
+\item 
+virtual double \hyperlink{class_rectangle_ac2ecb396e91ee632188df53c2322fbef}{surface} () const 
+\item 
+virtual double {\bfseries perimetre} () const \hypertarget{class_rectangle_ad01dd31ee53ad6920cd126382bb09b90}{}\label{class_rectangle_ad01dd31ee53ad6920cd126382bb09b90}
+
+\item 
+virtual double {\bfseries distance\+\_\+origine} (const \hyperlink{class_point}{Point} \&p) const \hypertarget{class_rectangle_a72cf6d5bada2e80849c7bf457ad086f2}{}\label{class_rectangle_a72cf6d5bada2e80849c7bf457ad086f2}
+
+\item 
+virtual void {\bfseries afficher} (ostream \&os=cout) const \hypertarget{class_rectangle_a3d9297623b84cf6c94cbc952be511003}{}\label{class_rectangle_a3d9297623b84cf6c94cbc952be511003}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_rectangle}{Rectangle} \hyperlink{class_rectangle_a231d88467ce5857f7546e20bef46ed2c}{temoin} = \hyperlink{class_rectangle}{Rectangle}(\hyperlink{class_point}{Point}(0,0), \hyperlink{class_point}{Point}(2,2))
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{Rectangle@{Rectangle}!copy@{copy}}
+\index{copy@{copy}!Rectangle@{Rectangle}}
+\subsubsection[{\texorpdfstring{copy() const }{copy() const }}]{\setlength{\rightskip}{0pt plus 5cm}Figure $\ast$ Rectangle\+::copy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_rectangle_a79aa738432ccb76ac84173bec4c31b7c}{}\label{class_rectangle_a79aa738432ccb76ac84173bec4c31b7c}
+Fonction virtuelle de copie \index{Rectangle@{Rectangle}!deplacer@{deplacer}}
+\index{deplacer@{deplacer}!Rectangle@{Rectangle}}
+\subsubsection[{\texorpdfstring{deplacer(const Point \&trans)}{deplacer(const Point &trans)}}]{\setlength{\rightskip}{0pt plus 5cm}void Rectangle\+::deplacer (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{p}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_rectangle_acfa7c56f2c0a087e908c4f7bc542c826}{}\label{class_rectangle_acfa7c56f2c0a087e908c4f7bc542c826}
+Déplacement-\/translation de valeur le point p \index{Rectangle@{Rectangle}!dessiner@{dessiner}}
+\index{dessiner@{dessiner}!Rectangle@{Rectangle}}
+\subsubsection[{\texorpdfstring{dessiner(ostream \&os=cout) const }{dessiner(ostream &os=cout) const }}]{\setlength{\rightskip}{0pt plus 5cm}void Rectangle\+::dessiner (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{os = {\ttfamily cout}}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_rectangle_a853147554cb4938530f75f83cf43b6c4}{}\label{class_rectangle_a853147554cb4938530f75f83cf43b6c4}
+Le dessin se limite à un affichage \index{Rectangle@{Rectangle}!surface@{surface}}
+\index{surface@{surface}!Rectangle@{Rectangle}}
+\subsubsection[{\texorpdfstring{surface() const }{surface() const }}]{\setlength{\rightskip}{0pt plus 5cm}double Rectangle\+::surface (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_rectangle_ac2ecb396e91ee632188df53c2322fbef}{}\label{class_rectangle_ac2ecb396e91ee632188df53c2322fbef}
+Calcul de la surface d\textquotesingle{}un rectangle 
+
+\subsection{Member Data Documentation}
+\index{Rectangle@{Rectangle}!temoin@{temoin}}
+\index{temoin@{temoin}!Rectangle@{Rectangle}}
+\subsubsection[{\texorpdfstring{temoin}{temoin}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Rectangle} Rectangle\+::temoin = {\bf Rectangle}({\bf Point}(0,0), {\bf Point}(2,2))\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_rectangle_a231d88467ce5857f7546e20bef46ed2c}{}\label{class_rectangle_a231d88467ce5857f7546e20bef46ed2c}
+Le rectangle témoin est une variable de classe 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+archive/rectangle.\+hpp\item 
+archive/rectangle.\+cpp\end{DoxyCompactItemize}

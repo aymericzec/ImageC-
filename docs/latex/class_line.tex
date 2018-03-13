@@ -1,0 +1,124 @@
+\hypertarget{class_line}{}\section{Line Class Reference}
+\label{class_line}\index{Line@{Line}}
+
+
+{\ttfamily \#include $<$Line.\+hpp$>$}
+
+
+
+Inheritance diagram for Line\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=124pt]{class_line__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Line\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=124pt]{class_line__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Line} (const \hyperlink{class_point}{Point} \&a, const \hyperlink{class_point}{Point} \&b)\hypertarget{class_line_a0ec34f80a43014768ec228bfa87fd15f}{}\label{class_line_a0ec34f80a43014768ec228bfa87fd15f}
+
+\item 
+virtual \hyperlink{class_line}{Line} $\ast$ \hyperlink{class_line_a47eb8ca4b98da5903b2e781bf6feeeb4}{copy} () const 
+\begin{DoxyCompactList}\small\item\em Fonction virtuelle de copie. \end{DoxyCompactList}\item 
+\hyperlink{class_point}{Point} {\bfseries get\+Origin} () const \hypertarget{class_line_ad75b05eb47a8701b3e997a731c093b29}{}\label{class_line_ad75b05eb47a8701b3e997a731c093b29}
+
+\item 
+\hyperlink{class_point}{Point} {\bfseries get\+Extremity} () const \hypertarget{class_line_a223ea932601e8ed5c4e2278e67f09fc3}{}\label{class_line_a223ea932601e8ed5c4e2278e67f09fc3}
+
+\item 
+virtual void \hyperlink{class_line_a1b8116c3c461dbb207f927f9e244fd9f}{translation} (const \hyperlink{class_point}{Point} \&p)
+\item 
+virtual void {\bfseries homothety} (const \hyperlink{class_point}{Point} \&p)\hypertarget{class_line_ae9acdfb8611ad7af187ad908fa3323f6}{}\label{class_line_ae9acdfb8611ad7af187ad908fa3323f6}
+
+\item 
+virtual void {\bfseries rotation} (const double radius)\hypertarget{class_line_aa61b4ecedc27f78a24192b5e44b7c2c0}{}\label{class_line_aa61b4ecedc27f78a24192b5e44b7c2c0}
+
+\item 
+virtual void {\bfseries central\+Symmetry} (initializer\+\_\+list$<$ \hyperlink{class_point}{Point} $>$ \&p)\hypertarget{class_line_a3724edda57b9095ce0af7c5a73379387}{}\label{class_line_a3724edda57b9095ce0af7c5a73379387}
+
+\item 
+virtual void {\bfseries axial\+SymmetryX} (initializer\+\_\+list$<$ \hyperlink{class_point}{Point} $>$ \&p)\hypertarget{class_line_acde0f7b21fd12feed799721d6bc57d17}{}\label{class_line_acde0f7b21fd12feed799721d6bc57d17}
+
+\item 
+virtual void {\bfseries axial\+SymmetryY} (initializer\+\_\+list$<$ \hyperlink{class_point}{Point} $>$ \&p)\hypertarget{class_line_a5dfdfd77686b63d0d9f8ab641d305867}{}\label{class_line_a5dfdfd77686b63d0d9f8ab641d305867}
+
+\item 
+virtual void {\bfseries draw} (ostream \&os=cout) const \hypertarget{class_line_a76dd03f158c3ff373dff29920eaccb81}{}\label{class_line_a76dd03f158c3ff373dff29920eaccb81}
+
+\item 
+virtual void {\bfseries print} (ostream \&os=cout) const \hypertarget{class_line_a97980f6509664d801e433590116d9c93}{}\label{class_line_a97980f6509664d801e433590116d9c93}
+
+\item 
+virtual double \hyperlink{class_line_ae531ddee8ae3446429c9078b4a8a51a9}{surface} () const 
+\item 
+virtual double {\bfseries perimeter} () const \hypertarget{class_line_af45d5df18885aa3e3f17a3f771add167}{}\label{class_line_af45d5df18885aa3e3f17a3f771add167}
+
+\item 
+virtual double {\bfseries origine\+Distance} (const \hyperlink{class_point}{Point} \&p) const \hypertarget{class_line_ad78622905b4960d4e576959d55e39bd1}{}\label{class_line_ad78622905b4960d4e576959d55e39bd1}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static Ligne \hyperlink{class_line_a24d84e551f2ffcfda32fcc2ca66c9f76}{temoin} = \hyperlink{class_line}{Line}(\hyperlink{class_point}{Point}(0,0), \hyperlink{class_point}{Point}(1,1))
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+auteurs \+: Michel Landschoot mail \+: \href{mailto:direction@landsnet.com}{\tt direction@landsnet.\+com} date de création \+: 2013-\/12-\/21 description \+: classe décrivant une ligne dans une hiérachie de figures 
+
+\subsection{Member Function Documentation}
+\index{Line@{Line}!copy@{copy}}
+\index{copy@{copy}!Line@{Line}}
+\subsubsection[{\texorpdfstring{copy() const }{copy() const }}]{\setlength{\rightskip}{0pt plus 5cm}Figure $\ast$ Line\+::copy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_line_a47eb8ca4b98da5903b2e781bf6feeeb4}{}\label{class_line_a47eb8ca4b98da5903b2e781bf6feeeb4}
+
+
+Fonction virtuelle de copie. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{Line@{Line}!surface@{surface}}
+\index{surface@{surface}!Line@{Line}}
+\subsubsection[{\texorpdfstring{surface() const }{surface() const }}]{\setlength{\rightskip}{0pt plus 5cm}double Line\+::surface (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_line_ae531ddee8ae3446429c9078b4a8a51a9}{}\label{class_line_ae531ddee8ae3446429c9078b4a8a51a9}
+T\+O\+UR DE M\+A\+G\+IE G\+E\+O\+M\+E\+T\+R\+I\+Q\+UE une ligne est vue pour les besoins de la cause comme une segment (origine, exptremite\mbox{]} avec une épaisseur soit un rectangle dont on peut calculer la surfade!!!! \index{Line@{Line}!translation@{translation}}
+\index{translation@{translation}!Line@{Line}}
+\subsubsection[{\texorpdfstring{translation(const Point \&p)}{translation(const Point &p)}}]{\setlength{\rightskip}{0pt plus 5cm}void Line\+::translation (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{p}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_line_a1b8116c3c461dbb207f927f9e244fd9f}{}\label{class_line_a1b8116c3c461dbb207f927f9e244fd9f}
+Déplacement-\/translation de valeur le point p 
+
+\subsection{Member Data Documentation}
+\index{Line@{Line}!temoin@{temoin}}
+\index{temoin@{temoin}!Line@{Line}}
+\subsubsection[{\texorpdfstring{temoin}{temoin}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Line} Line\+::temoin = {\bf Line}({\bf Point}(0,0), {\bf Point}(1,1))\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_line_a24d84e551f2ffcfda32fcc2ca66c9f76}{}\label{class_line_a24d84e551f2ffcfda32fcc2ca66c9f76}
+La ligne témoin est une variable de classe 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/Line.\+hpp\item 
+src/\hyperlink{_line_8cpp}{Line.\+cpp}\end{DoxyCompactItemize}
