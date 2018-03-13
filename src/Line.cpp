@@ -1,9 +1,14 @@
 /**
- * auteurs          : Michel Landschoot
- * mail             : direction@landsnet.com
- * date de création : 2013-12-21
- * description      : impléméntation d'une classe décrivant une ligne dans une hiérachie de figures
+ * \file Line.cpp
+ * \brief Implementation d'une ligne
+ * \author MOREAU.A ZECCHINI.A VIERIA_NORO.K
+ * \version 0.1
+ * \date 13 mars 2018
+ *
+ * Impléméntation d'une classe décrivant une ligne dans une hiérachie de figures.
+ *
  */
+ 
 
 #include <cmath>
 #include "Line.hpp"

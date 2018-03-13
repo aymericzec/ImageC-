@@ -11,12 +11,20 @@
 
 class Line: public Figure {
 
+
 public:
     static Ligne temoin;
 
 	Line(const Point & a , const Point & b)
         : _origine(a), _extremite(b) { }
-        
+    
+/**
+ * \fn virtual Line * copy() const;
+ * \brief Fonction virtuelle de copie
+ *
+ * \param 
+ * \return Line *.
+ */
     virtual Line * copy() const;
     virtual ~Line () { };
     
