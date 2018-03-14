@@ -10,6 +10,7 @@
 #include <iostream>
 #include "Point.hpp"
 #include <list>
+#include <memory>
 
 using namespace std;
 
@@ -24,7 +25,7 @@ public:
      * Par suite, une fonction virtuelle de copy est définie qui permet
      * la simulation de constructeurs virtuels.
      */
-    virtual Shape * copy() const = 0;
+    virtual shared_ptr<Shape> copy() const = 0;
     virtual ~Shape () { };
     
     virtual void translation(const Point & p);

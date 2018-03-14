@@ -33,7 +33,7 @@ private:
     /**
      * Conteneur de shapes allouées dynamiquement
      */
-    set<shared_ptr<Shape>> _array;
+    set<shared_ptr<Shape>> _shapes;
 	virtual list<Point *> getPoints();
 
 public:
@@ -41,14 +41,14 @@ public:
 
     static Image temoin;
 
-    Image (const Point & a = Point(0,0)) : _origin(a), _number(0), _array{shared_ptr<Shape>()} { }
+    Image (const Point & a = Point(0,0)) : _origin(a), _number(0), _shapes{shared_ptr<Shape>()} { }
 
     /**
      * contructeur de copie profonde
      */
     Image(const Image & image);
 
-    virtual Shape * copy() const;
+    virtual shared_ptr<Shape> copy() const;
 
     virtual ~Image()
     {
@@ -62,20 +62,20 @@ public:
                   _tableau[_nombre++] = ((Shape *) &f)->copy();
             */
          
-        _array.clear();
+        _shapes.clear();
       }
 
-    Shape * getShape(int index) const
+    shared_ptr<Shape> getShape(int index) const
     {
         if ((0 <= index) && (index < IMAGE_MAX)) {
 			
             int i = 0;
             
-			for(auto it = cbegin(_array); it != cend(_array); it++) {
+			for(auto it = cbegin(_shapes); it != cend(_shapes); it++) {
 								
 				if(i == index) {
 					auto shape(*it);
-					return shape.get();
+					return shape;
 				}
 				i++;
 			}
@@ -83,14 +83,14 @@ public:
         return 0;
     }
 
-    void setShape(int index, Shape * shape)
+    void setShape(int index, shared_ptr<Shape> shape)
     {
         int i = 0;
                
-        for(auto it = cbegin(_array); it != cend(_array); it++) {
+        for(auto it = cbegin(_shapes); it != cend(_shapes); it++) {
 						
 			if(i == index) {
-				_array.insert(it, shared_ptr<Shape>(shape));
+				_shapes.insert(it, shape);
 				break;
 			}
 			i++;

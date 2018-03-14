@@ -17,7 +17,7 @@ static void printAux(ostream & os, const Image & image, int level);
 Image Image::temoin = Image();
 
 
-Image::Image(const Image & image) : _origin(image._origin), _number(image._number), _array(image._array)
+Image::Image(const Image & image) : _origin(image._origin), _number(image._number), _shapes(image._shapes)
 {
 	for (int i = 0; i < _number; i++)
     {
@@ -28,17 +28,18 @@ Image::Image(const Image & image) : _origin(image._origin), _number(image._numbe
 /**
  * Fonction virtuelle de copie
  */
-Shape * Image::copy() const
+shared_ptr<Shape> Image::copy() const
 {
-    Image * res = new Image(this->_origin);
-    res->_number = this->_number;
+    shared_ptr<Image> ptrImage = make_shared<Image>(*this);
+    ptrImage->_number = this->_number;
     
 	for (int i = 0; i < _number; i++)
-    {
-		res->setShape(i, this->getShape(i+1)->copy());
+    {	
+		
+		ptrImage->setShape(i, make_shared<Shape>(this->getShape(i+1)->copy()));
     }
     
-    return res;
+    return ptrImage;
 }
 
 
@@ -141,7 +142,7 @@ static void printAux(ostream & os, const Image & image, int level)
     os << "BEGIN IMAGE : " << image.getOrigin() << " " << image.getNumber() << " shapes " << endl;
     for (int i = 0; i < image.getNumber(); i++)
     {
-        const Image * imageIn = dynamic_cast<const Image *> (image.getShape(i+1));
+        const Image * imageIn = dynamic_pointer_cast<const Image *> (image.getShape(i+1));
         if (imageIn != 0)
         {
             printAux(os, *imageIn, level + 1);
