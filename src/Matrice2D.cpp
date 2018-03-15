@@ -30,10 +30,10 @@ void Matrice2D::homothety(const Point & p, list<Point *> & points)
 {
 	double matrice[2][2];
 	
-	matrice[0][0] = 1;
-	matrice[0][1] = p.getX();
-	matrice[1][0] = p.getY();
-	matrice[1][1] = 1;
+	matrice[0][0] = p.getX();
+	matrice[0][1] = 0;
+	matrice[1][0] = 0;
+	matrice[1][1] = p.getY();
 
 	for(auto n : points) 
 	{

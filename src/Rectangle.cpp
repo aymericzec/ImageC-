@@ -1,10 +1,17 @@
 #include <cmath>
-#include "rectangle.hpp"
+#include "Rectangle.hpp"
+#include <list>
+#include <MLV/MLV_all.h>
 
 /**
  * Le rectangle témoin est une variable de classe
  */
-Rectangle Rectangle::temoin = Rectangle(Point(0,0), Point(2,2));
+Rectangle Rectangle::temoin = Rectangle(Point(0,0), Point(2,2), Point(0,0));
+
+list<Point *> Rectangle::getPoints() {
+	return {&_A, &_B, &_C, &_D};
+}
+
 
 Point Rectangle::getA() const
 {
@@ -29,35 +36,25 @@ Point Rectangle::getD() const
 /**
  * Fonction virtuelle de copie
  */
-Figure * Rectangle::copy() const
+shared_ptr<Shape> Rectangle::copy() const
 {
-    return new Rectangle(this->_A, this->_B);
-}
-
-list<Point *> Rectangle::getPoints() const
-{
-	list<Point *> p = {_A, _B, _C, _D};
-	
-	return p;
-}
-
-/**
- * Déplacement-translation de valeur le point p
- */
-void Rectangle::deplacer(const Point & p)
-{
-    _A += p;
-    _B += p;
-    _C += p;
-    _D += p;
+	return make_shared<Rectangle>(*this);
 }
 
 /**
  * Le dessin se limite à un affichage
  */
-void Rectangle::dessiner(ostream & os) const
+void Rectangle::draw(ostream & os) const
 {
     os << *this << endl;;
+}
+
+void Rectangle::drawMLV() const
+{
+    int vx [] = {_A.getX(), _B.getX(), _D.getX(), _C.getX()};
+	int vy [] = {_A.getY(), _B.getY(), _D.getY(), _C.getY()};
+	
+	MLV_draw_polygon(vx, vy, 4, MLV_COLOR_BLUE); 		
 }
 
 /**
@@ -75,7 +72,13 @@ double Rectangle::surface() const
 	return l * L;	
 }
 
-double Rectangle::perimetre() const 
+Point Rectangle::getOriginImage() const
+{
+	return _originImage;
+}
+
+
+double Rectangle::perimeter() const 
 {
 	double l = sqrt((_C.getX() - _A.getX()) * (_C.getX() - _A.getX())
 					+ (_C.getY() - _A.getY()) * (_C.getY() - _A.getY()));
@@ -86,7 +89,7 @@ double Rectangle::perimetre() const
 	return (2 * l) + (2 * L);
 }
 
-double Rectangle::distance_origine(const Point & p) const
+double Rectangle::origineDistance(const Point & p) const
 {
 	double distance = sqrt( (_A.getX() - p.getX()) * (_A.getX() - p.getX())
                             + (_A.getY() - p.getY()) * (_A.getY() - p.getY())); 
@@ -94,7 +97,7 @@ double Rectangle::distance_origine(const Point & p) const
     return distance;
 }
 
-void Rectangle::afficher(ostream & os) const
+void Rectangle::print(ostream & os) const
 {
     os << "rectangle (" << _A << ", " << _B << ", " << _C << ", " << _D << ")" << endl;
 }

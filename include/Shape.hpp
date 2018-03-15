@@ -38,6 +38,7 @@ public:
 	virtual void axialSymmetryY();
 	
 	virtual void draw (ostream & os = cout) const = 0;
+	virtual void drawMLV() const = 0;
     virtual void print(ostream & os) const = 0;
 
     virtual double surface() const = 0;

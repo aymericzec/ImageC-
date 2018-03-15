@@ -3,6 +3,9 @@
 #include "Line.hpp"
 #include "Matrice2D.hpp"
 #include "Image.hpp"
+#include "Rectangle.hpp"
+#include "Triangle.hpp"
+#include "Circle.hpp"
 #include <MLV/MLV_all.h>
 
 using namespace std;
@@ -140,10 +143,359 @@ void testLineMlv () {
 	
 }
 
+void testRectangleMlv () {
+	
+	int width = 640, height = 460;
+	
+	MLV_create_window("medium - 2 - mouse events", "mouse events", width, height);
+
+	Rectangle r1 = Rectangle(Point(200,200), Point(400,400), Point(300,300));
+	
+	int vx[] = {r1.getA().getX(), r1.getB().getX(), r1.getD().getX(), r1.getC().getX()};
+	int vy[] = {r1.getA().getY(), r1.getB().getY(), r1.getD().getY(), r1.getC().getY()};
+	
+	MLV_draw_filled_circle 	(r1.getA().getX(), r1.getA().getY(), 2, MLV_COLOR_YELLOW);
+	MLV_draw_filled_circle 	(r1.getB().getX(), r1.getB().getY(), 2, MLV_COLOR_RED);
+	MLV_draw_filled_circle 	(r1.getC().getX(), r1.getC().getY(), 2, MLV_COLOR_BLUE);
+	MLV_draw_filled_circle 	(r1.getD().getX(), r1.getD().getY(), 2, MLV_COLOR_GREEN);
+	
+	MLV_draw_polygon(vx, vy, 4, MLV_COLOR_GREEN); 	
+	MLV_actualise_window();
+	int a;
+	cout << "Appuyé sur un chiffre pour tester la translation: ";
+	cin >> a;
+	
+	r1 = Rectangle(Point(200,200), Point(400,400), Point(300,300));
+	r1.translation(Point(10,10));
+	int vx2 [] = {r1.getA().getX(), r1.getB().getX(), r1.getD().getX(), r1.getC().getX()};
+	int vy2 [] = {r1.getA().getY(), r1.getB().getY(), r1.getD().getY(), r1.getC().getY()};
+	
+	
+	MLV_draw_polygon(vx2, vy2, 4, MLV_COLOR_GREEN); 	
+	MLV_actualise_window();
+	
+	cout << "Appuyé sur un chiffre pour tester la rotation: ";
+	cin >> a;
+
+	r1 = Rectangle(Point(200,200), Point(400,400), Point(300,300));
+	r1.rotation(0.785398);
+	int vx3 [] = {r1.getA().getX(), r1.getB().getX(), r1.getD().getX(), r1.getC().getX()};
+	int vy3 [] = {r1.getA().getY(), r1.getB().getY(), r1.getD().getY(), r1.getC().getY()};
+	
+	MLV_draw_polygon(vx3, vy3, 4, MLV_COLOR_BLUE); 	
+	MLV_actualise_window();	
+
+	cout << "Appuyé sur un chiffre pour tester l'homothétie: ";
+	cin >> a;
+
+	r1 = Rectangle(Point(100,100), Point(200,200), Point(150,150));
+	
+	cout << r1.getA() << " " << r1.getB() << " " << r1.getC() << " " << r1.getD() << endl;
+	
+	r1.homothety(Point(2,2));
+	
+	cout << r1.getA() << " " << r1.getB() << " " << r1.getC() << " " << r1.getD() << endl;
+	
+	int vx4 [] = {r1.getA().getX(), r1.getB().getX(), r1.getD().getX(), r1.getC().getX()};
+	int vy4 [] = {r1.getA().getY(), r1.getB().getY(), r1.getD().getY(), r1.getC().getY()};
+	
+	MLV_draw_polygon(vx4, vy4, 4, MLV_COLOR_BLUE); 	
+	MLV_actualise_window();	
+
+	cout << "Appuyé sur un chiffre pour tester la symétrie centrale: ";
+	cin >> a;
+	
+	r1 = Rectangle(Point(100,100), Point(200,200), Point(200,200));
+	
+	cout << r1.getA() << " " << r1.getB() << " " << r1.getC() << " " << r1.getD() << endl;
+	
+	r1.centralSymmetry();
+	
+	cout << r1.getA() << " " << r1.getB() << " " << r1.getC() << " " << r1.getD() << endl;
+	
+	int vx5 [] = {r1.getA().getX(), r1.getB().getX(), r1.getD().getX(), r1.getC().getX()};
+	int vy5 [] = {r1.getA().getY(), r1.getB().getY(), r1.getD().getY(), r1.getC().getY()};
+	
+	MLV_draw_polygon(vx5, vy5, 4, MLV_COLOR_BLUE); 	
+	MLV_actualise_window();	
+	
+	cout << "Appuyé sur un chiffre pour tester la symétrie X: ";
+	cin >> a;
+
+	r1 = Rectangle(Point(100,100), Point(200,200), Point(200,200));
+	
+	cout << r1.getA() << " " << r1.getB() << " " << r1.getC() << " " << r1.getD() << endl;
+	
+	r1.axialSymmetryX();
+	
+	cout << r1.getA() << " " << r1.getB() << " " << r1.getC() << " " << r1.getD() << endl;
+	
+	int vx7 [] = {r1.getA().getX(), r1.getB().getX(), r1.getD().getX(), r1.getC().getX()};
+	int vy7 [] = {r1.getA().getY(), r1.getB().getY(), r1.getD().getY(), r1.getC().getY()};
+	
+	MLV_draw_polygon(vx7, vy7, 4, MLV_COLOR_BLUE); 	
+	MLV_actualise_window();	
+	
+	cout << "Appuyé sur un chiffre pour tester la symétrie Y: ";
+	cin >> a;
+
+	r1 = Rectangle(Point(100,100), Point(200,200), Point(200,200));
+	
+	cout << r1.getA() << " " << r1.getB() << " " << r1.getC() << " " << r1.getD() << endl;
+	
+	r1.axialSymmetryY();
+	
+	cout << r1.getA() << " " << r1.getB() << " " << r1.getC() << " " << r1.getD() << endl;
+	
+	int vx6 [] = {r1.getA().getX(), r1.getB().getX(), r1.getD().getX(), r1.getC().getX()};
+	int vy6 [] = {r1.getA().getY(), r1.getB().getY(), r1.getD().getY(), r1.getC().getY()};
+	
+	MLV_draw_polygon(vx6, vy6, 4, MLV_COLOR_BLUE); 	
+	MLV_actualise_window();	
+	
+	cout << "Appuyé sur un chiffre pour terminer";
+	cin >> a;
+	
+	MLV_free_window();
+	
+}
+
+void testTriangleMlv () {  
+    int width = 640, height = 460; 
+     
+    MLV_create_window("medium - 2 - mouse events", "mouse events", width, height); 
+ 
+    Triangle t1 = Triangle(Point(200,200), Point(400,200), Point(300, 400), Point(300,300)); 
+     
+    int vx[] = {t1.getA().getX(), t1.getB().getX(), t1.getC().getX()}; 
+    int vy[] = {t1.getA().getY(), t1.getB().getY(), t1.getC().getY()}; 
+     
+    MLV_draw_polygon(vx, vy, 3, MLV_COLOR_GREEN);      
+    MLV_actualise_window(); 
+    int a; 
+    cout << "Appuyé sur un chiffre pour tester la translation: "; 
+    cin >> a; 
+     
+    t1 = Triangle(Point(200,200), Point(400,200), Point(300, 400), Point(300,300)); 
+    t1.translation(Point(10,10)); 
+    int vx2 [] = {t1.getA().getX(), t1.getB().getX(), t1.getC().getX()}; 
+    int vy2 [] = {t1.getA().getY(), t1.getB().getY(), t1.getC().getY()}; 
+     
+     
+    MLV_draw_polygon(vx2, vy2, 3, MLV_COLOR_GREEN);      
+    MLV_actualise_window(); 
+     
+    cout << "Appuyé sur un chiffre pour tester la rotation: "; 
+    cin >> a; 
+ 
+    t1 = Triangle(Point(200,200), Point(400,200), Point(300, 400), Point(300,300)); 
+    t1.rotation(0.785398); 
+    int vx3 [] = {t1.getA().getX(), t1.getB().getX(), t1.getC().getX()}; 
+    int vy3 [] = {t1.getA().getY(), t1.getB().getY(), t1.getC().getY()}; 
+     
+    MLV_draw_polygon(vx3, vy3, 3, MLV_COLOR_BLUE);      
+    MLV_actualise_window();     
+ 
+    cout << "Appuyé sur un chiffre pour tester l'homothétie: "; 
+    cin >> a; 
+ 
+    t1 = Triangle(Point(200,200), Point(400,200), Point(300, 400), Point(300,300)); 
+     
+    cout << t1.getA() << " " << t1.getB() << " " << t1.getC() << endl; 
+     
+    t1.homothety(Point(2,2)); 
+     
+    cout << t1.getA() << " " << t1.getB() << " " << t1.getC() << endl; 
+     
+    int vx4 [] = {t1.getA().getX(), t1.getB().getX(), t1.getC().getX()}; 
+    int vy4 [] = {t1.getA().getY(), t1.getB().getY(), t1.getC().getY()}; 
+     
+    MLV_draw_polygon(vx4, vy4, 3, MLV_COLOR_BLUE);      
+    MLV_actualise_window();     
+ 
+    cout << "Appuyé sur un chiffre pour tester la symétrie centrale: "; 
+    cin >> a; 
+     
+    t1 = Triangle(Point(200,200), Point(400,200), Point(300, 400), Point(300,300));
+     
+    cout << t1.getA() << " " << t1.getB() << " " << t1.getC() << endl; 
+     
+    t1.centralSymmetry(); 
+     
+    cout << t1.getA() << " " << t1.getB() << " " << t1.getC() << endl; 
+     
+    int vx5 [] = {t1.getA().getX(), t1.getB().getX(), t1.getC().getX()}; 
+    int vy5 [] = {t1.getA().getY(), t1.getB().getY(), t1.getC().getY()}; 
+     
+    MLV_draw_polygon(vx5, vy5, 3, MLV_COLOR_BLUE);      
+    MLV_actualise_window();     
+     
+    cout << "Appuyé sur un chiffre pour tester la symétrie X: "; 
+    cin >> a; 
+ 
+    t1 = Triangle(Point(200,200), Point(400,200), Point(300, 400), Point(300,300)); 
+     
+    cout << t1.getA() << " " << t1.getB() << " " << t1.getC() << endl; 
+     
+    t1.axialSymmetryX(); 
+     
+    cout << t1.getA() << " " << t1.getB() << " " << t1.getC() << endl; 
+     
+    int vx7 [] = {t1.getA().getX(), t1.getB().getX(), t1.getC().getX()}; 
+    int vy7 [] = {t1.getA().getY(), t1.getB().getY(), t1.getC().getY()}; 
+     
+    MLV_draw_polygon(vx7, vy7, 3, MLV_COLOR_BLUE);      
+    MLV_actualise_window();     
+     
+    cout << "Appuyé sur un chiffre pour tester la symétrie Y: "; 
+    cin >> a; 
+ 
+    t1 = Triangle(Point(200,200), Point(400,200), Point(300, 400), Point(300,300)); 
+     
+    cout << t1.getA() << " " << t1.getB() << " " << t1.getC() << endl; 
+     
+    t1.axialSymmetryY(); 
+     
+    cout << t1.getA() << " " << t1.getB() << " " << t1.getC() << endl; 
+     
+    int vx6 [] = {t1.getA().getX(), t1.getB().getX(), t1.getC().getX()}; 
+    int vy6 [] = {t1.getA().getY(), t1.getB().getY(), t1.getC().getY()}; 
+     
+    MLV_draw_polygon(vx6, vy6, 3, MLV_COLOR_BLUE);      
+    MLV_actualise_window();     
+     
+    cout << "Appuyé sur un chiffre pour terminer"; 
+    cin >> a; 
+     
+    MLV_free_window(); 
+     
+}
+
+void testCircleMlv () {  
+    int width = 640, height = 460; 
+     
+    MLV_create_window("medium - 2 - mouse events", "mouse events", width, height); 
+ 
+    Circle t1 = Circle(Point(200,200), Point(220,200), Point(200, 200)); 
+     
+    MLV_draw_circle(t1.getCenter().getX(),t1.getCenter().getY(), t1.getRadius(), MLV_COLOR_YELLOW);
+    MLV_actualise_window(); 
+    
+    int a; 
+    cout << "Appuyé sur un chiffre pour tester la translation: "; 
+    cin >> a; 
+     
+    t1 = Circle(Point(200,200), Point(220,200), Point(200, 200)); 
+    t1.translation(Point(10,10)); 
+    
+    MLV_draw_circle(t1.getCenter().getX(),t1.getCenter().getY(), t1.getRadius(), MLV_COLOR_YELLOW);
+    MLV_actualise_window();
+     
+    cout << "Appuyé sur un chiffre pour tester la rotation: "; 
+    cin >> a; 
+ 
+    t1 = Circle(Point(200,200), Point(220,200), Point(180, 180));  
+    t1.rotation(0.785398); 
+    
+	MLV_draw_circle(t1.getCenter().getX(),t1.getCenter().getY(), t1.getRadius(), MLV_COLOR_YELLOW);
+    MLV_actualise_window();    
+ 
+    cout << "Appuyé sur un chiffre pour tester l'homothétie: "; 
+    cin >> a; 
+ 
+    t1 = Circle(Point(200,200), Point(220,200), Point(200, 200)); 
+          
+    t1.homothety(Point(2,2)); 
+     
+	MLV_draw_circle(t1.getCenter().getX(),t1.getCenter().getY(), t1.getRadius(), MLV_COLOR_YELLOW);
+    MLV_actualise_window();    
+ 
+    cout << "Appuyé sur un chiffre pour tester la symétrie centrale: "; 
+    cin >> a; 
+     
+    t1 = Circle(Point(200,200), Point(220,200), Point(200, 200)); 
+     
+     
+    t1.centralSymmetry(); 
+     
+    MLV_draw_circle(t1.getCenter().getX(),t1.getCenter().getY(), t1.getRadius(), MLV_COLOR_YELLOW);
+    MLV_actualise_window();
+    cout << "Appuyé sur un chiffre pour tester la symétrie X: "; 
+    cin >> a; 
+ 
+    t1 = Circle(Point(200,200), Point(220,200), Point(200, 200)); 
+     
+     
+    t1.axialSymmetryX(); 
+     
+    MLV_draw_circle(t1.getCenter().getX(),t1.getCenter().getY(), t1.getRadius(), MLV_COLOR_YELLOW);
+    MLV_actualise_window();     
+     
+    cout << "Appuyé sur un chiffre pour tester la symétrie Y: "; 
+    cin >> a; 
+ 
+    t1 = Circle(Point(200,200), Point(220,200), Point(200, 200)); 
+     
+     
+    t1.axialSymmetryY(); 
+     
+    MLV_draw_circle(t1.getCenter().getX(),t1.getCenter().getY(), t1.getRadius(), MLV_COLOR_YELLOW);
+    MLV_actualise_window();  
+     
+    cout << "Appuyé sur un chiffre pour terminer"; 
+    cin >> a; 
+     
+    MLV_free_window(); 
+     
+}
+
+void testImageMlv ()  {
+	int width = 640, height = 460; 
+	int a;
+    MLV_create_window("medium - 2 - mouse events", "mouse events", width, height); 
+    MLV_draw_filled_rectangle(0, 0, width, height, MLV_COLOR_BLACK);
+	MLV_actualise_window();
+	Point origin(width/2, height/2);
+	
+	Image image;
+	
+	Line l1 = Line(Point(200,200), Point(250,250), origin);
+	Circle c1 = Circle(Point(200,200), Point(220,200), origin);
+	Rectangle r1 = Rectangle(Point(200,200), Point(400,400), origin);
+	Triangle t1 = Triangle(Point(200,200), Point(400,200), Point(300, 400), origin); 
+	
+	image.add(l1);
+	image.add(c1);
+	image.add(r1);
+	image.add(t1);
+	image.drawMLV();
+	MLV_actualise_window();
+	
+	cout << "Appuyé sur un chiffre pour translatio de l'image"; 
+    cin >> a; 
+    
+    MLV_draw_filled_rectangle(0, 0, width, height, MLV_COLOR_BLACK);
+	MLV_actualise_window();
+	//image.translation(Point(150,0));
+	//image.rotation(3.1416);
+	//image.centralSymmetry();
+	//image.axialSymmetryX();
+	//image.axialSymmetryY();
+	image.homothety(Point(2,2));
+	image.drawMLV();
+	MLV_actualise_window();
+
+	cout << "Appuyé sur un chiffre pour terminer"; 
+    cin >> a; 
+	
+	MLV_free_window(); 
+}
+
 int main (void) {
-	testLineMlv();
-	
-	
-	
+	//testLineMlv();
+	//testRectangleMlv();
+	//testTriangleMlv();
+	//testCircleMlv();
+	testImageMlv();
     return 0;
 }

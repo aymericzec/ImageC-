@@ -80,7 +80,15 @@ public:
 	virtual  Point getOriginImage() const;
 
     virtual void translation(const Point & trans);
+    virtual void homothety(const Point & p);
+	virtual void rotation(const double radius);
+	virtual void centralSymmetry ();
+	virtual void axialSymmetryX();
+	virtual void axialSymmetryY();
+	
+	
     virtual void draw(ostream & os = cout) const;
+    virtual void drawMLV() const;
     virtual double surface() const;
     virtual double perimeter() const;
     virtual double origineDistance(const Point & p) const;

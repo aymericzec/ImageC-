@@ -83,12 +83,69 @@ void Image::translation(const Point & p)
     }
 }
 
+void Image::homothety(const Point & p)
+{
+	for (int i = 0; i < _number; i++)
+    {            
+        if(this->getShape(i+1) != 0)
+			this->getShape(i+1)->homothety(p);  
+    }
+}
+
+void Image::rotation(const double radius)
+{
+	for (int i = 0; i < _number; i++)
+    {            
+        if(this->getShape(i+1) != 0)
+			this->getShape(i+1)->rotation(radius);  
+    }
+}
+
+void Image::centralSymmetry()
+{
+	for (int i = 0; i < _number; i++)
+    {            
+        if(this->getShape(i+1) != 0)
+			this->getShape(i+1)->centralSymmetry();  
+    }
+}
+	
+void Image::axialSymmetryX()
+{
+	for (int i = 0; i < _number; i++)
+    {            
+        if(this->getShape(i+1) != 0)
+			this->getShape(i+1)->axialSymmetryX();  
+    }
+}
+	
+void Image::axialSymmetryY()
+{
+	for (int i = 0; i < _number; i++)
+    {            
+        if(this->getShape(i+1) != 0)
+			this->getShape(i+1)->axialSymmetryY();  
+    }
+}
+
 /**
  * Le dessin se limite à un affichage
  */
 void Image::draw(ostream & os) const
 {
     os << *this << endl;
+}
+
+/**
+ * Le dessin se limite à un affichage
+ */
+void Image::drawMLV() const
+{
+	for (int i = 0; i < _number; i++)
+    {            
+        if(this->getShape(i+1) != 0)
+			this->getShape(i+1)->drawMLV();  
+    }
 }
 
 double Image::surface() const

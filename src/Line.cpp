@@ -13,6 +13,7 @@
 #include "Line.hpp"
 #include <list>
 #include "Matrice2D.hpp"
+#include <MLV/MLV_all.h>
 
 list<Point *> Line::getPoints() {
 	return {&_origine, &_extremite};
@@ -53,6 +54,11 @@ Point Line::getOriginImage() const
 void Line::draw(ostream & os) const
 {
     os << *this << endl;;
+}
+
+void Line::drawMLV() const
+{
+    MLV_draw_line(_origine.getX(), _origine.getY(), _extremite.getX(), _extremite.getY(),  MLV_COLOR_YELLOW); 		
 }
 
 void Line::print(ostream & os) const

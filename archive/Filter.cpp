@@ -56,6 +56,31 @@ list<shared_ptr<const Shape>> Filter::createShape(int n)
     return shapes;
 }
 
+
+//Trier
+void Methode private trier (list &, function)
+
+void Methode triePerimetre(list &) -> trier (list, lambda bool true)
+void Trier aire (list & , trier (list, function))
+void rier distance (list& , trier (list, function))
+
+//Rechercher
+private list search(list, lamba);
+public searchShape (list, typeid)
+public searchPertimeter (list, double)
+
+//count
+private count (list, lamba)
+public countShape (list, typeid)
+countPerimeter(list, typeid)
+
+//delete Supprimer Image si plus de figure
+private delete (list, lamba)
+public deleteShape (list, typeid)
+countPerimeter(list, typeid)
+
+countFigure(list, type)
+
 /**
  * retourne le nombre de figures d'une liste de figures vérifiant la condition
  */

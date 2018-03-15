@@ -1,9 +1,4 @@
-/**
- * auteurs          : Michel Landschoot
- * mail             : direction@landsnet.com
- * date de création : 2013-12-21
- * description      : classe décrivant un point
- */
+
 
 #ifndef __POINT__
 #define __POINT__

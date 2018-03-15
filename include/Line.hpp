@@ -36,6 +36,7 @@ public:
     virtual Point getOriginImage() const;
 
 	virtual void draw(ostream & os = cout) const;
+	virtual void drawMLV() const;
 	virtual void print(ostream & os = cout) const;
 	
     virtual double surface() const;

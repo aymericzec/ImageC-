@@ -1,10 +1,11 @@
 #include <cmath>
-#include "triangle.hpp"
+#include "Triangle.hpp"
+#include <MLV/MLV_all.h>
 
 /**
  * Le triangle témoin est une variable de classe
  */
-Triangle Triangle::temoin = Triangle(Point(0,0), Point(2,0), Point(1,1));
+Triangle Triangle::temoin = Triangle(Point(0,0), Point(2,0), Point(1,1), Point(0,0));
 
 Point Triangle::getA() const
 {
@@ -21,37 +22,33 @@ Point Triangle::getC() const
 	return _C;
 }
 
+list<Point *> Triangle::getPoints() {
+	return {&_A, &_B, &_C};
+}
+
 /**
  * Fonction virtuelle de copie
  */
-Figure * Triangle::copy() const
+shared_ptr<Shape> Triangle::copy() const
 {
-    return new Triangle(this->_A, this->_B, this->_C);
+	return make_shared<Triangle>(*this);
 }
 
-list<Point *> Triangle::getPoints() const
-{
-	list<Point *> p = {_A, _B, _C};
-	
-	return p;
-}
-
-/**
- * Déplacement-translation de valeur le point p
- */
-void Triangle::deplacer(const Point & p)
-{
-    _A += p;
-    _B += p;
-    _C += p;
-}
 
 /**
  * Le dessin se limite à un affichage
  */
-void Triangle::dessiner(ostream & os) const
+void Triangle::draw(ostream & os) const
 {
     os << *this << endl;;
+}
+
+void Triangle::drawMLV() const
+{
+    int vx [] = {_A.getX(), _B.getX(), _C.getX()}; 
+    int vy [] = {_A.getY(), _B.getY(), _C.getY()}; 
+     
+    MLV_draw_polygon(vx, vy, 3, MLV_COLOR_BLUE); 		
 }
 
 /**
@@ -78,7 +75,7 @@ double Triangle::surface() const
 	return sqrt(p * (p - a) * (p - b) * (p - c));
 }
 
-double Triangle::perimetre() const 
+double Triangle::perimeter() const 
 {
 	double a = sqrt((_B.getX() - _A.getX()) * (_B.getX() - _A.getX())
 					+ (_B.getY() - _A.getY()) * (_B.getY() - _A.getY()));
@@ -92,7 +89,7 @@ double Triangle::perimetre() const
 	return a + b + c;
 }
 
-double Triangle::distance_origine(const Point & p) const
+double Triangle::origineDistance(const Point & p) const
 {
 	double distance = sqrt( (_A.getX() - p.getX()) * (_A.getX() - p.getX())
                             + (_A.getY() - p.getY()) * (_A.getY() - p.getY())); 
@@ -100,7 +97,12 @@ double Triangle::distance_origine(const Point & p) const
     return distance;
 }
 
-void Triangle::afficher(ostream & os) const
+void Triangle::print(ostream & os) const
 {
     os << "triangle (" << _A << ", " << _B << ", " << _C << ")" << endl;
+}
+
+Point Triangle::getOriginImage() const
+{
+	return _originImage;
 }
