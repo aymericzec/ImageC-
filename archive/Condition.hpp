@@ -7,14 +7,14 @@
  * La classe Condition devrait proposer une fonction de copie virtuelle à l'instar de la classe Figure
  */
 
-#ifndef CONDITION_H
-#define CONDITION_H
+#ifndef __CONDITION__
+#define __CONDITION__
 #include <list>
-#include "figure.hpp"
+#include "Shape.hpp"
 
 class Condition {
 public:
-    virtual bool verif(const Figure * f) const = 0;
+    virtual bool verif(const Shape & shape) const = 0;
     virtual string toString() const = 0;
 
 protected:

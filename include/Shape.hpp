@@ -28,6 +28,8 @@ public:
     virtual shared_ptr<Shape> copy() const = 0;
     virtual ~Shape () { };
     
+    virtual Point getOriginImage() const = 0;
+    
     virtual void translation(const Point & p);
 	virtual void homothety(const Point & p);
 	virtual void rotation(const double radius);

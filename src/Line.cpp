@@ -15,20 +15,21 @@
 #include "Matrice2D.hpp"
 
 list<Point *> Line::getPoints() {
-	return {&_origine};
+	return {&_origine, &_extremite};
 }
 
 /**
  * La ligne témoin est une variable de classe
  */
-Line Line::temoin = Line(Point(0,0), Point(1,1));
+Line Line::temoin = Line(Point(0,0), Point(1,1), Point(0,0));
 
 /**
  * Fonction virtuelle de copie
  */
-Line * Line::copy() const
+shared_ptr<Shape> Line::copy() const
 {
-    return new Line(this->_origine, this->_extremite);
+	return make_shared<Line>(*this);
+    //return new Line(this->_origine, this->_extremite);
 }
 
 Point Line::getOrigin() const
@@ -39,6 +40,11 @@ Point Line::getOrigin() const
 Point Line::getExtremity() const
 {
 	return _extremite;
+}
+
+Point Line::getOriginImage() const
+{
+	return _originImage;
 }
 
 /**

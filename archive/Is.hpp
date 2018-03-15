@@ -5,16 +5,17 @@
  * description      : classe décrivant la condition EstUn
  */
 
-#ifndef ESTUN_H
-#define ESTUN_H
+#ifndef __IS__
+#define __IS8_
 #include <cstring>
 #include <typeinfo>
-#include "condition.h"
+#include "Condition.h"
+#include "Shape.h"
 
-class EstUn : public Condition {
+class Is : public Condition {
 
 public:
-    EstUn(const Figure * f) : ftemoin(f) { }
+    Is(const Shape * s) : ftemoin(s) { }
 
     virtual ~EstUn() { }
 
@@ -23,9 +24,9 @@ public:
         return "EST UN " + string(typeid(*ftemoin).name());
     }
 
-    virtual bool verif(const Figure * f) const
+    virtual bool verif(const Shape * s) const
     {
-       if (typeid(*ftemoin) == typeid(*f))
+       if (typeid(*ftemoin) == typeid(*s))
                return true;
         return false;
     }

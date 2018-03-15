@@ -17,8 +17,8 @@ private:
 public:
     static Line temoin;
 
-	Line(const Point & a , const Point & b)
-        : _origine(a), _extremite(b) { }
+	Line(const Point & a , const Point & b, const Point & originImage)
+        : _origine(a), _extremite(b), _originImage(originImage) { }
     
 /**
  * \fn virtual Line * copy() const;
@@ -27,11 +27,13 @@ public:
  * \param 
  * \return Line *.
  */
-    virtual Line * copy() const;
+    virtual shared_ptr<Shape> copy() const;
     virtual ~Line () { };
     
     Point getOrigin() const;
     Point getExtremity() const;
+    
+    virtual Point getOriginImage() const;
 
 	virtual void draw(ostream & os = cout) const;
 	virtual void print(ostream & os = cout) const;
@@ -44,6 +46,7 @@ public:
 private:
 	Point _origine;
 	Point _extremite;
+	Point _originImage;
 };
 #endif
 

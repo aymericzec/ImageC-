@@ -8,14 +8,15 @@
  * En effet, elle a 2 attributs de type pointeur.
  */
 
-#ifndef ET_H
-#define ET_H
-#include "condition.h"
+#ifndef __AND__
+#define __AND__
+#include "Condition.h"
+#include "Shape.h"
 
-class Et : public Condition {
+class AND : public Condition {
 
 public:
-    Et(Condition * c1, Condition * c2) : _c1(c1), _c2(c2) { }
+    And(Condition * c1, Condition * c2) : _c1(c1), _c2(c2) { }
 
     virtual ~Et() { }
 
@@ -24,9 +25,9 @@ public:
         return _c1->toString() + " ET " + _c2->toString();
     }
 
-    virtual bool verif(const Figure * f) const
+    virtual bool verif(const Shape * s) const
     {
-        if ((_c1->verif(f)) &&( _c2->verif(f)))
+        if ((_c1->verif(s)) &&( _c2->verif(s)))
         {
             return true;
         }

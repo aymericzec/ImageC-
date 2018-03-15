@@ -37,7 +37,6 @@ void Matrice2D::homothety(const Point & p, list<Point *> & points)
 
 	for(auto n : points) 
 	{
-		cout << n->getX() << endl;
 		mulMatrice(matrice, *n);
 	}
 }

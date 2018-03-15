@@ -17,7 +17,7 @@ static void printAux(ostream & os, const Image & image, int level);
 Image Image::temoin = Image();
 
 
-Image::Image(const Image & image) : _origin(image._origin), _number(image._number), _shapes(image._shapes)
+Image::Image(const Image & image) : _origin(image._origin), _number(image._number), _originImage(image.getOriginImage()), _shapes(image._shapes)
 {
 	for (int i = 0; i < _number; i++)
     {
@@ -36,7 +36,7 @@ shared_ptr<Shape> Image::copy() const
 	for (int i = 0; i < _number; i++)
     {	
 		
-		ptrImage->setShape(i, make_shared<Shape>(this->getShape(i+1)->copy()));
+		ptrImage->setShape(i, this->getShape(i+1)->copy());
     }
     
     return ptrImage;
@@ -51,10 +51,7 @@ void Image::add(const Shape & s)
     if (s == *this)
         return;
 
-    if (_number == IMAGE_MAX)
-        cerr << "l' image est deja remplie ! " << endl;
-    else
-    {
+
         /** Code pour du partage d'instances allouées dynamiquement
          * nécessite des compteurs de référence pour leur libération mémoire
             en C ==> ABANDON
@@ -63,7 +60,6 @@ void Image::add(const Shape & s)
             _tableau[_nombre++] = const_cast<Shape *> (&f);
         */
          this->setShape(_number++, (&s)->copy());
-    }
 }
 
 list<Point *> Image::getPoints()
@@ -140,9 +136,11 @@ static void printAux(ostream & os, const Image & image, int level)
                 os << "\t";
     }
     os << "BEGIN IMAGE : " << image.getOrigin() << " " << image.getNumber() << " shapes " << endl;
+    
+    
     for (int i = 0; i < image.getNumber(); i++)
     {
-        const Image * imageIn = dynamic_pointer_cast<const Image *> (image.getShape(i+1));
+        shared_ptr<const Image> imageIn = dynamic_pointer_cast<const Image>(image.getShape(i+1));
         if (imageIn != 0)
         {
             printAux(os, *imageIn, level + 1);
@@ -157,9 +155,57 @@ static void printAux(ostream & os, const Image & image, int level)
    
         }
     }
+ 
     for (j = 0; j < level; j++)
     {
                 os << "\t";
     }
     os << "END IMAGE" << endl;
+}
+
+shared_ptr<Shape> Image::getShape(int index) const
+{
+	if ((0 <= index) && (index <= this->_number)) {
+		
+		int i = 0;
+		
+		for(auto it = cbegin(_shapes); it != cend(_shapes); it++) {
+							
+			if(i == index) {
+				auto shape(*it);
+				return shape;
+			}
+			i++;
+		}
+	}
+	return 0;
+}
+
+void Image::setShape(int index, shared_ptr<Shape> shape)
+{
+	int i = 0;
+		   
+	for(auto it = cbegin(_shapes); it != cend(_shapes); it++) {
+					
+		if(i == index) {
+			_shapes.insert(it, shape);
+			break;
+		}
+		i++;
+	}
+}
+
+int Image::getNumber() const
+{
+	return _number;
+}
+
+Point Image::getOrigin() const
+{
+	return _origin;
+}
+
+Point Image::getOriginImage() const
+{
+	return _originImage;
 }

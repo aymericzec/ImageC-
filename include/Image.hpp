@@ -26,10 +26,13 @@ private:
      * Origine de la shape
      */
     Point _origin;
+   
     /**
      * Nombre de shapes dans une image
      */
     int _number;
+    
+    Point _originImage;
     /**
      * Conteneur de shapes allouées dynamiquement
      */
@@ -37,11 +40,9 @@ private:
 	virtual list<Point *> getPoints();
 
 public:
-    enum {IMAGE_MAX = 50};
-
     static Image temoin;
 
-    Image (const Point & a = Point(0,0)) : _origin(a), _number(0), _shapes{shared_ptr<Shape>()} { }
+    Image (const Point & a = Point(0,0), const Point & originImage = Point(0,0)) : _origin(a), _number(0), _originImage(originImage) , _shapes{shared_ptr<Shape>()} { }
 
     /**
      * contructeur de copie profonde
@@ -65,49 +66,18 @@ public:
         _shapes.clear();
       }
 
-    shared_ptr<Shape> getShape(int index) const
-    {
-        if ((0 <= index) && (index < IMAGE_MAX)) {
-			
-            int i = 0;
-            
-			for(auto it = cbegin(_shapes); it != cend(_shapes); it++) {
-								
-				if(i == index) {
-					auto shape(*it);
-					return shape;
-				}
-				i++;
-			}
-		}
-        return 0;
-    }
+    shared_ptr<Shape> getShape(int index) const;
 
-    void setShape(int index, shared_ptr<Shape> shape)
-    {
-        int i = 0;
-               
-        for(auto it = cbegin(_shapes); it != cend(_shapes); it++) {
-						
-			if(i == index) {
-				_shapes.insert(it, shape);
-				break;
-			}
-			i++;
-		}
-    }
+    void setShape(int index, shared_ptr<Shape> shape);
 
-    int getNumber() const
-    {
-        return _number;
-    }
+    int getNumber() const;
 
-    Point getOrigin() const
-    {
-        return _origin;
-    }
+    Point getOrigin() const;
+    
 
     void add(const Shape & s);
+
+	virtual  Point getOriginImage() const;
 
     virtual void translation(const Point & trans);
     virtual void draw(ostream & os = cout) const;

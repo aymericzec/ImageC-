@@ -5,20 +5,20 @@
  * description      : classe décrivant la condition EstPetite
  */
 
-#ifndef ESTPETITE_H
-#define ESTPETITE_H
-#include "condition.h"
+#ifndef __MORELITTLE__
+#define __MORELITTLE__
+#include "Condition.h"
 
 /**
  * Conversion d'un entier en un objet string
  */
 extern string intToString(int n);
 
-class EstPetite : public Condition
+class MoreLittle : public Condition
 {
 
 public:
-    EstPetite(double seuil) : _seuil(seuil)
+    MoreLittle(double seuil) : _seuil(seuil)
     {
     }
 
@@ -34,9 +34,9 @@ public:
         return string("La surface EST PLUS PETITE QUE ") + "" + intToString(_seuil);
     }
 
-    virtual bool verif(const Figure * f) const
+    virtual bool verif(const Shape * s) const
     {
-        if(f->surface() < this->_seuil)
+        if(s->surface() < this->_seuil)
         {
             return true;
         }

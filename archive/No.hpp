@@ -12,12 +12,12 @@
 #define NON_H
 #include "condition.h"
 
-class Non : public Condition {
+class No : public Condition {
 
 public:
-    Non(Condition * c) : condition(c) { }
+    No(Condition * c) : condition(c) { }
 
-    virtual ~Non() { }
+    virtual ~No() { }
 
     virtual string toString() const
     {
