@@ -1,6 +1,9 @@
 #include <cmath>
 #include "Triangle.hpp"
 #include <MLV/MLV_all.h>
+#include "Shapes.hpp"
+
+using namespace enumShapes;
 
 /**
  * Le triangle témoin est une variable de classe
@@ -105,4 +108,9 @@ void Triangle::print(ostream & os) const
 Point Triangle::getOriginImage() const
 {
 	return _originImage;
+}
+
+Shapes Triangle::getEnum() const 
+{
+	return Shapes::TRIANGLE;
 }

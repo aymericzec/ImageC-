@@ -11,6 +11,7 @@
 #include "Point.hpp"
 #include <list>
 #include <memory>
+#include "Shapes.hpp"
 
 using namespace std;
 
@@ -44,10 +45,14 @@ public:
     virtual double surface() const = 0;
     virtual double perimeter() const = 0;
     virtual double origineDistance(const Point & p) const = 0;
+    
+    virtual enumShapes::Shapes getEnum() const = 0;
+
 
 	bool operator== (const Shape & f) const;
 
 
     friend ostream & operator<< (ostream & os, const Shape & shape);
+    bool operator== (const enumShapes::Shapes & typeShape) const;
 };
 #endif

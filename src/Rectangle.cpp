@@ -2,6 +2,9 @@
 #include "Rectangle.hpp"
 #include <list>
 #include <MLV/MLV_all.h>
+#include "Shapes.hpp"
+
+using namespace enumShapes;
 
 /**
  * Le rectangle témoin est une variable de classe
@@ -99,5 +102,10 @@ double Rectangle::origineDistance(const Point & p) const
 
 void Rectangle::print(ostream & os) const
 {
-    os << "rectangle (" << _A << ", " << _B << ", " << _C << ", " << _D << ")" << endl;
+    os << "rectangle (" << _A << ", " << _B << ", " << _C << ", " << _D << ")" << " Perimetre: " << this->perimeter() << endl;
+}
+
+Shapes Rectangle::getEnum() const 
+{
+	return Shapes::RECTANGLE;
 }

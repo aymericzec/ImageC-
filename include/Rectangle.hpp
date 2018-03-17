@@ -1,9 +1,11 @@
 #ifndef __RECTANGLE__
 #define __RECTANGLE__
 #include "Shape.hpp"
+#include "Shapes.hpp"
 #include <list>
 
 using namespace std;
+using namespace enumShapes;
 
 class Rectangle : public Shape {
 
@@ -13,7 +15,7 @@ private:
 public:
 	static Rectangle temoin;
 	
-	Rectangle(const Point & a, const Point & b, const Point & originImage): _A(a), _D(b), _originImage(originImage), _B(), _C() 
+	Rectangle(const Point & a, const Point & b, const Point & originImage  = Point(0,0)): _A(a), _D(b), _originImage(originImage), _B(), _C() 
 	{ 
 		_B.setX(_D.getX());
 		_B.setY(_A.getY());
@@ -39,6 +41,8 @@ public:
     virtual double surface() const;
     virtual double perimeter() const;
     virtual double origineDistance(const Point & p) const;
+    
+    virtual Shapes getEnum() const;
     
 private:
 	Point _A; //Point en haut à gauche

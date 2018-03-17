@@ -8,8 +8,8 @@
 #include "Image.hpp"
 #include <cmath>
 #include <list>
-
-static void printAux(ostream & os, const Image & image, int level);
+#include "Shapes.hpp"
+using namespace enumShapes;
 
 /**
  * L'image témoin est une variable de classe
@@ -17,29 +17,14 @@ static void printAux(ostream & os, const Image & image, int level);
 Image Image::temoin = Image();
 
 
-Image::Image(const Image & image) : _origin(image._origin), _number(image._number), _originImage(image.getOriginImage()), _shapes(image._shapes)
-{
-	for (int i = 0; i < _number; i++)
-    {
-		this->setShape(i, image.getShape(i+1)->copy());
-    }
-}
+Image::Image(const Image & image) : _origin(image._origin), _number(image._number), _originImage(image.getOriginImage()), _shapes(image._shapes) {}
 
 /**
  * Fonction virtuelle de copie
  */
 shared_ptr<Shape> Image::copy() const
 {
-    shared_ptr<Image> ptrImage = make_shared<Image>(*this);
-    ptrImage->_number = this->_number;
-    
-	for (int i = 0; i < _number; i++)
-    {	
-		
-		ptrImage->setShape(i, this->getShape(i+1)->copy());
-    }
-    
-    return ptrImage;
+    return make_shared<Image>(*this);
 }
 
 
@@ -48,18 +33,7 @@ shared_ptr<Shape> Image::copy() const
  */
 void Image::add(const Shape & s)
 {
-    if (s == *this)
-        return;
-
-
-        /** Code pour du partage d'instances allouées dynamiquement
-         * nécessite des compteurs de référence pour leur libération mémoire
-            en C ==> ABANDON
-            _tableau[_nombre++] = (Shape *) (&f);
-            en C++: du const_cast
-            _tableau[_nombre++] = const_cast<Shape *> (&f);
-        */
-         this->setShape(_number++, (&s)->copy());
+	this->_shapes.insert(s.copy());
 }
 
 list<Point *> Image::getPoints()
@@ -76,56 +50,45 @@ list<Point *> Image::getPoints()
 void Image::translation(const Point & p)
 {
     _origin += p;
-    for (int i = 0; i < _number; i++)
-    {            
-        if(this->getShape(i+1) != 0)
-			this->getShape(i+1)->translation(p);  
-    }
+    
+    for (auto shape: this->_shapes) {
+		shape->translation(p);
+	}
 }
 
 void Image::homothety(const Point & p)
 {
-	for (int i = 0; i < _number; i++)
-    {            
-        if(this->getShape(i+1) != 0)
-			this->getShape(i+1)->homothety(p);  
-    }
+    for (auto shape: this->_shapes) {
+		shape->homothety(p);
+	}
 }
 
 void Image::rotation(const double radius)
 {
-	for (int i = 0; i < _number; i++)
-    {            
-        if(this->getShape(i+1) != 0)
-			this->getShape(i+1)->rotation(radius);  
-    }
+    for (auto shape: this->_shapes) {
+		shape->rotation(radius);
+	}
 }
 
 void Image::centralSymmetry()
 {
-	for (int i = 0; i < _number; i++)
-    {            
-        if(this->getShape(i+1) != 0)
-			this->getShape(i+1)->centralSymmetry();  
-    }
+    for (auto shape: this->_shapes) {
+		shape->centralSymmetry();
+	}
 }
 	
 void Image::axialSymmetryX()
 {
-	for (int i = 0; i < _number; i++)
-    {            
-        if(this->getShape(i+1) != 0)
-			this->getShape(i+1)->axialSymmetryX();  
-    }
+    for (auto shape: this->_shapes) {
+		shape->axialSymmetryX();
+	}
 }
 	
 void Image::axialSymmetryY()
 {
-	for (int i = 0; i < _number; i++)
-    {            
-        if(this->getShape(i+1) != 0)
-			this->getShape(i+1)->axialSymmetryY();  
-    }
+    for (auto shape: this->_shapes) {
+		shape->axialSymmetryY();
+	}
 }
 
 /**
@@ -141,22 +104,18 @@ void Image::draw(ostream & os) const
  */
 void Image::drawMLV() const
 {
-	for (int i = 0; i < _number; i++)
-    {            
-        if(this->getShape(i+1) != 0)
-			this->getShape(i+1)->drawMLV();  
-    }
+    for (auto shape: this->_shapes) {
+		shape->drawMLV();
+	}
 }
 
 double Image::surface() const
 {
     double res = 0;
 
-    for (int i = 0; i < _number; i++)
-    {
-        if(this->getShape(i+1) != 0)
-			res += this->getShape(i+1)->surface(); 
-    }
+    for (auto shape: this->_shapes) {
+		res += shape->surface();
+	}
     return res;
 }
 
@@ -164,9 +123,8 @@ double Image::perimeter() const
 {
 	double p = 0.0;
 	
-	for(int i = 0; i < _number; i++) 
-	{
-		p += this->getShape(i+1)->perimeter();
+    for (auto shape: this->_shapes) {
+		p += shape->perimeter();
 	}
 	
 	return p;
@@ -182,25 +140,28 @@ double Image::origineDistance(const Point & p) const
 
 void Image::print(ostream & os) const
 {
-    printAux(os, *this, 0);
+    this->printAux(os, 0);
 }
 
-static void printAux(ostream & os, const Image & image, int level)
+void Image::printAux(ostream & os, int level) const
 {
     int j;
     for (j = 0; j < level; j++)
     {
                 os << "\t";
     }
-    os << "BEGIN IMAGE : " << image.getOrigin() << " " << image.getNumber() << " shapes " << endl;
+    
+    os << "IMAGE: origine " << this->getOrigin() << " Quantités: " << this->getSize() 
+    << " Périmètre: " << this->perimeter() << " Aire:  " 
+    << this->surface() << " Distance à l'origine: " << endl;
     
     
-    for (int i = 0; i < image.getNumber(); i++)
-    {
-        shared_ptr<const Image> imageIn = dynamic_pointer_cast<const Image>(image.getShape(i+1));
-        if (imageIn != 0)
+    for (auto shape: this->_shapes) {
+		shared_ptr<const Image> imageIn = dynamic_pointer_cast<const Image>(shape);
+		
+		if (imageIn != 0)
         {
-            printAux(os, *imageIn, level + 1);
+            imageIn->printAux(os, level + 1);
         }
         else
         {
@@ -208,11 +169,11 @@ static void printAux(ostream & os, const Image & image, int level)
             {
                 os << "\t";
             }
-            image.getShape(i+1)->print(os);
-   
+            shape->print(os);
         }
-    }
- 
+	}
+    	
+
     for (j = 0; j < level; j++)
     {
                 os << "\t";
@@ -220,41 +181,9 @@ static void printAux(ostream & os, const Image & image, int level)
     os << "END IMAGE" << endl;
 }
 
-shared_ptr<Shape> Image::getShape(int index) const
+int Image::getSize() const
 {
-	if ((0 <= index) && (index <= this->_number)) {
-		
-		int i = 0;
-		
-		for(auto it = cbegin(_shapes); it != cend(_shapes); it++) {
-							
-			if(i == index) {
-				auto shape(*it);
-				return shape;
-			}
-			i++;
-		}
-	}
-	return 0;
-}
-
-void Image::setShape(int index, shared_ptr<Shape> shape)
-{
-	int i = 0;
-		   
-	for(auto it = cbegin(_shapes); it != cend(_shapes); it++) {
-					
-		if(i == index) {
-			_shapes.insert(it, shape);
-			break;
-		}
-		i++;
-	}
-}
-
-int Image::getNumber() const
-{
-	return _number;
+	return this->_shapes.size();
 }
 
 Point Image::getOrigin() const
@@ -265,4 +194,9 @@ Point Image::getOrigin() const
 Point Image::getOriginImage() const
 {
 	return _originImage;
+}
+
+Shapes Image::getEnum() const 
+{
+	return Shapes::IMAGE;
 }

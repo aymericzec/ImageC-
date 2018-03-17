@@ -7,6 +7,9 @@
 #include "Triangle.hpp"
 #include "Circle.hpp"
 #include <MLV/MLV_all.h>
+#include "ParseFile.hpp"
+#include "Filter.hpp"
+#include "Shapes.hpp"
 
 using namespace std;
 
@@ -491,11 +494,68 @@ void testImageMlv ()  {
 	MLV_free_window(); 
 }
 
+void testFile () {
+	int width = 1000, height = 1000; 
+	MLV_create_window("medium - 2 - mouse events", "mouse events", width, height); 
+	shared_ptr<Shape> shape = ParseFile::parseFile("./test/image1.txt");
+	shape->drawMLV();
+	MLV_actualise_window();
+	int a;
+	cin >> a;
+	MLV_free_window(); 
+}
+
+void testFilter () {
+	Image image(Point(500,500), Point(500,500));
+	image.add(Circle(Point(100,100), Point(500,500)));
+	image.add(Rectangle(Point(200,200), Point(600,600)));
+	
+	Image image2(Point(500,500), Point(600,600));
+	image2.add(Circle(Point(500,500), Point(800,800)));
+	
+	image.add(image2);
+	image.add(Image(Point(500,500), Point(500,500)));
+	image.add(Circle(Point(500,500), Point(800,800)));
+	image.add(Rectangle(Point(200,200), Point(600,600)));
+
+	cout << image << endl;
+	
+	cout << endl << endl;
+	
+	list<shared_ptr<Shape>> s = image.sortPerimeter();
+	
+	for (auto a: s) {
+		cout << "sss " <<  *a << endl;
+	}
+	cout << image << endl;
+	
+	s = image.searchShape(Shapes::CIRCLE);
+	
+	cout << "Recherche de cercle: " << endl;
+	for (auto a: s) {
+		cout <<  *a << endl;
+	}
+	
+	cout << "Nombre de rectangle: " <<  image.countShape(Shapes::RECTANGLE) << endl;
+
+	cout << "Nombre < 2000: " <<  image.countPerimeter(2000) << endl;
+	
+	cout << "suppresion des cercles" << endl;
+	image.deleteShape(Shapes::CIRCLE);
+	cout << image << endl;
+
+	cout << "suppresion perimetre inférieur à 2000" << endl;
+	image.deletePerimeter(2000);
+	cout << "Figure restante(s) " << endl << image << endl;
+}
+
 int main (void) {
 	//testLineMlv();
 	//testRectangleMlv();
 	//testTriangleMlv();
 	//testCircleMlv();
-	testImageMlv();
+	//testImageMlv();
+	//testFile();
+	testFilter();
     return 0;
 }

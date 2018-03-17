@@ -8,6 +8,9 @@
 #ifndef __LIGNE__
 #define __LIGNE__
 #include "Shape.hpp"
+#include "Shapes.hpp"
+
+using namespace enumShapes;
 
 class Line : public Shape {
 
@@ -42,6 +45,8 @@ public:
     virtual double surface() const;
     virtual double perimeter() const;
     virtual double origineDistance(const Point & p) const;
+    
+    virtual Shapes getEnum() const;
     
 
 private:

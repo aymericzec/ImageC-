@@ -1,7 +1,9 @@
 #ifndef __TRIANGLE__
 #define __TRIANGLE__
 #include "Shape.hpp"
+#include "Shapes.hpp"
 
+using namespace enumShapes;
 using namespace std;
 
 class Triangle : public Shape {
@@ -31,6 +33,7 @@ public:
     virtual double perimeter() const;
     virtual double origineDistance(const Point & p) const;
     virtual void print(ostream & os = cout) const;
+    virtual Shapes getEnum() const;
 
 private:
 	Point _A; //Point origine celui à gauche

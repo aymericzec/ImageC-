@@ -1,8 +1,11 @@
-1000 1000
-Image
-Image
-Image
+Image 500 500
+END
+Image 100 100
+Image 100 100
+END
 Circle 100 100 50 50
-Rectangle 200 200 600 600
-Rectangle 200 200 600 600
-
+Triangle 500 500 600 600 500 600
+END
+Rectangle 200 200 400 400
+Line 200 200 600 600
+END

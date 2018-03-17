@@ -1,8 +1,12 @@
 
 
 #include "Circle.hpp"
+#include "Shapes.hpp"
 #include <cmath>
 #include <MLV/MLV_all.h>
+
+
+using namespace enumShapes;
 
 /**
  * Le cercle témoin est une variable de classe
@@ -63,11 +67,16 @@ double Circle::origineDistance(const Point & p) const
 
 void Circle::print(ostream & os) const
 {
-    os << "cercle : (" << _center << ", " << _radius << ")" << endl;
+    os << "cercle : (" << _center << ", " << _radius << ")" << " Perimetre: " << this->perimeter() << endl;
 }
 
 Point Circle::getOriginImage() const
 {
 	return _originImage;
+}
+
+Shapes Circle::getEnum() const 
+{
+	return Shapes::CIRCLE;
 }
 

@@ -8,6 +8,7 @@
 #ifndef __CIRCLE__
 #define __CIRCLE__
 #include "Shape.hpp"
+#include "Shapes.hpp"
 
 using namespace std;
 
@@ -37,6 +38,7 @@ public:
     virtual double perimeter() const;
     virtual double origineDistance(const Point & p) const;
     virtual void print(ostream & os = cout) const;
+	virtual enumShapes::Shapes getEnum() const;
 	
 private:
     Point _center;

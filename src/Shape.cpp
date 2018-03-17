@@ -1,5 +1,8 @@
 #include "Shape.hpp"
 #include "Matrice2D.hpp"
+#include "Shapes.hpp"
+#include <string>
+
 
 ostream & operator<< (ostream & os, const Shape & shape) {
 	shape.print(os);
@@ -8,6 +11,10 @@ ostream & operator<< (ostream & os, const Shape & shape) {
 
 bool Shape::operator== (const Shape & s) const {
 	    return (this == &s);
+}
+
+bool Shape::operator== (const enumShapes::Shapes & typeShape) const {
+	return this->getEnum() == typeShape;
 }
 
 void Shape::translation(const Point & p) {

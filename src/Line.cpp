@@ -14,6 +14,9 @@
 #include <list>
 #include "Matrice2D.hpp"
 #include <MLV/MLV_all.h>
+#include "Shapes.hpp"
+
+using namespace enumShapes;
 
 list<Point *> Line::getPoints() {
 	return {&_origine, &_extremite};
@@ -93,6 +96,11 @@ double Line::origineDistance(const Point & p) const
                             + (_origine.getY() - p.getY()) * (_origine.getY() - p.getY())); 
                             
     return distance;
+}
+
+Shapes Line::getEnum() const 
+{
+	return Shapes::LINE;
 }
 
 
