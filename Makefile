@@ -12,4 +12,4 @@ Main: $(OBJS)
 	$(CC) $(CFLAGS) $< -o $@ 
 	
 clean:
-	rm $(PROGRAM) rm ./src/*.o
+	rm $(PROGRAM) ./src/*.o

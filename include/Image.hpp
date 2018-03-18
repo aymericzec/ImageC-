@@ -40,19 +40,11 @@ private:
      * Conteneur de shapes allouées dynamiquement
      */
     set<shared_ptr<Shape>> _shapes;
-	virtual list<Point *> getPoints();
+    
+    
+	virtual list<Point *> getPoints() override;
 	
-	list<shared_ptr<Shape>> sortImage(function<bool(const shared_ptr<Shape> &, const shared_ptr<Shape> &)> f) {
-		list<shared_ptr<Shape>> shapesList;
-
-		for(const auto & ptr: this->_shapes){
-			shapesList.push_back(ptr);
-		}
-		
-		shapesList.sort(f);
-		
-		return shapesList;
-	}
+	list<shared_ptr<Shape>> sortImage(function<bool(const shared_ptr<Shape> &, const shared_ptr<Shape> &)> f);
 	
 	void printAux(ostream & os, int level) const;
 
@@ -66,7 +58,7 @@ public:
      */
     Image(const Image & image);
 
-    virtual shared_ptr<Shape> copy() const;
+    virtual shared_ptr<Shape> copy() const override;
 
     virtual ~Image()
     {
@@ -85,13 +77,12 @@ public:
 
 
     int getSize() const;
-
+    set<shared_ptr<Shape>> getShapes() const;
     Point getOrigin() const;
-    
-
-    void add(const Shape & s);
-
-	virtual  Point getOriginImage() const;
+	virtual  Point getOriginImage() const override;
+	virtual Shapes getEnum() const override;
+	
+	void add(const Shape & s);
 	
 	/**
 	 * 
@@ -102,112 +93,6 @@ public:
 	 * a tester
 	 * 
 	 */
-	
-	list<shared_ptr<Shape>> sortPerimeter (bool increase = true) {
-		if (increase) {
-			return this->sortImage([&](const shared_ptr<Shape> & a, const shared_ptr<Shape> & b) -> bool { return a->perimeter() < b->perimeter();});
-		} else {
-			return this->sortImage([&](const shared_ptr<Shape> & a, const shared_ptr<Shape> & b) -> bool { return a->perimeter() > b->perimeter();});
-		}
-	}
-	
-	list<shared_ptr<Shape>> sortSurface (bool increase = true) {
-		if (increase) {
-			return this->sortImage([&](const shared_ptr<Shape> & a, const shared_ptr<Shape> & b) -> bool { return a->surface() < b->surface();});
-		} else {
-			return this->sortImage([&](const shared_ptr<Shape> & a, const shared_ptr<Shape> & b) -> bool { return a->surface() > b->surface();});
-		}
-	}
-	
-	list<shared_ptr<Shape>> sortOriginDistance (bool increase = true) {
-		Point origin = this->getOrigin();
-		
-		if (increase) {
-			return this->sortImage([&](const shared_ptr<Shape> & a, const shared_ptr<Shape> & b) -> bool { return a->origineDistance(origin) < b->origineDistance(origin);});
-		} else {
-			return this->sortImage([&](const shared_ptr<Shape> & a, const shared_ptr<Shape> & b) -> bool { return a->origineDistance(origin) > b->origineDistance(origin);});
-		}
-	}
-	
-		
-	list<shared_ptr<Shape>> searchShape (Shapes typeShape) {
-		list<shared_ptr<Shape>> shapes;
-		
-		for (auto shape: this->_shapes) {
-			cout << (*shape == typeShape) << endl;
-			if (*shape == typeShape) {
-				shapes.push_back(shape);
-			}
-		}
-		
-		return shapes;
-	}
-	
-	list<shared_ptr<Shape>> searchPerimeter (double perimeter) {
-		list<shared_ptr<Shape>> shapes;
-		
-		for (auto shape: this->_shapes) {
-			if (shape->perimeter() < perimeter) {
-				shapes.push_back(shape);
-			}
-		}
-		
-		return shapes;
-	}
-	
-	int countShape (Shapes typeShape) {
-		return searchShape(typeShape).size();
-	}
-	
-	int countPerimeter (double perimeter) {
-		return searchPerimeter(perimeter).size();
-	}
-	
-	bool deleteShape (Shapes typeShape) {
-		bool flag = false;
-
-		if (this->_shapes.size() == 0) {
-			return true;
-		}
-		
-		for (auto shape: this->_shapes) {
-			if (*shape == Shapes::IMAGE) {
-				shared_ptr<Image> img = dynamic_pointer_cast<Image>(shape);
-				img->deleteShape(typeShape);
-			}
-			
-			else if (*shape == typeShape) {
-				cout << *shape << " Suppression" << endl;
-				this->_shapes.erase(shape);
-				flag = true;
-			}
-		}
-
-		return flag;		
-	}
-	
-	bool deletePerimeter (double perimeter) {
-		bool flag = false;
-
-		if (this->_shapes.size() == 0) {
-			return true;
-		}
-		
-		for (auto shape: this->_shapes) {
-			if (*shape == Shapes::IMAGE) {
-				shared_ptr<Image> img = dynamic_pointer_cast<Image>(shape);
-				img->deletePerimeter(perimeter);
-			}
-			
-			if (shape->perimeter() < perimeter) {
-				cout << *shape << " Suppression" << endl;
-				this->_shapes.erase(shape);
-				flag = true;
-			}
-		}
-
-		return flag;	
-	}
 
     virtual void translation(const Point & trans);
     virtual void homothety(const Point & p);
@@ -217,15 +102,74 @@ public:
 	virtual void axialSymmetryY();
 	
 	
-    virtual void draw(ostream & os = cout) const;
-    virtual void drawMLV() const;
-    virtual double surface() const;
-    virtual double perimeter() const;
-    virtual double origineDistance(const Point & p) const;
-    virtual void print(ostream & os = cout) const;
+    virtual void draw(ostream & os = cout) const override;
+    virtual void drawMLV() const override;
+    virtual double surface() const override;
+    virtual double perimeter() const override;
+    virtual double origineDistance(const Point & p) const override;
+    virtual void print(ostream & os = cout) const override;
     
-    virtual Shapes getEnum() const;
+    
+    list<shared_ptr<Shape>> sortPerimeter (bool increase = true);
+	list<shared_ptr<Shape>> sortSurface (bool increase = true);
+	list<shared_ptr<Shape>> sortOriginDistance (bool increase = true);
+	
+		
+	list<shared_ptr<Shape>> searchShape (Shapes typeShape);
+	list<shared_ptr<Shape>> searchPerimeter (double perimeter);
+	
+	
+	int countShape (Shapes typeShape);
+	int countPerimeter (double perimeter);
+	
+	
+	bool deleteShape (Shapes typeShape) {
+		
+		bool flag = false;
 
-    
+		if (this->_shapes.size() == 0) {
+			return true;
+		}
+			
+		for (auto shape: this->_shapes) {
+			if (*shape == Shapes::IMAGE) {
+				shared_ptr<Image> img = dynamic_pointer_cast<Image>(shape);
+				img->deleteShape(typeShape);
+			}
+			else if (*shape == typeShape) {
+				cout << *shape << " Suppression" << endl;
+				this->_shapes.erase(shape);
+				flag = true;
+			}
+		}
+
+		return flag;		
+	}
+
+	bool deletePerimeter (double perimeter) {
+			
+		bool flag = false;
+
+		if (this->_shapes.size() == 0) {
+			return true;
+		}
+			
+		for (auto shape: this->_shapes) {
+			if (*shape == Shapes::IMAGE) {
+				shared_ptr<Image> img = dynamic_pointer_cast<Image>(shape);
+				img->deletePerimeter(perimeter);
+			}
+				
+			if (shape->perimeter() < perimeter) {
+				cout << *shape << " Suppression" << endl;
+				this->_shapes.erase(shape);
+				flag = true;
+			}
+		}
+
+		return flag;	
+	}    
 };
+
+
 #endif

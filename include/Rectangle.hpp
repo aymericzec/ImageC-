@@ -10,7 +10,7 @@ using namespace enumShapes;
 class Rectangle : public Shape {
 
 private:
-	virtual list<Point *> getPoints();
+	virtual list<Point *> getPoints() override;
 
 public:
 	static Rectangle temoin;
@@ -28,21 +28,21 @@ public:
 	Point getC() const;
 	Point getD() const;
 		
-	virtual shared_ptr<Shape> copy() const;
+	virtual shared_ptr<Shape> copy() const override;
     virtual ~Rectangle() { }
    
 
-    virtual Point getOriginImage() const;
+    virtual Point getOriginImage() const override;
 
-	virtual void draw(ostream & os = cout) const;
-	virtual void drawMLV() const;
-	virtual void print(ostream & os = cout) const;
+	virtual void draw(ostream & os = cout) const override;
+	virtual void drawMLV() const override;
+	virtual void print(ostream & os = cout) const override;
 	
-    virtual double surface() const;
-    virtual double perimeter() const;
-    virtual double origineDistance(const Point & p) const;
+    virtual double surface() const override;
+    virtual double perimeter() const override;
+    virtual double origineDistance(const Point & p) const override;
     
-    virtual Shapes getEnum() const;
+    virtual Shapes getEnum() const override;
     
 private:
 	Point _A; //Point en haut à gauche

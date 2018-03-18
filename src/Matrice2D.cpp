@@ -20,7 +20,6 @@ void Matrice2D::translation(const Point & p, list<Point *> & points)
 {
 	for(auto point : points) 
 	{
-		cout << point->getX() << " Y" << point->getY() << endl;
 		point->setX(point->getX() + p.getX());
 		point->setY(point->getY() + p.getY());
 	}

@@ -16,7 +16,7 @@ class Circle: public Shape
 {
 	
 private:
-	virtual list<Point *> getPoints();
+	virtual list<Point *> getPoints() override;
 	
 public:
     static Circle temoin;
@@ -26,19 +26,19 @@ public:
         
     Point getCenter() const;
     double getRadius() const;
-    virtual Point getOriginImage() const;
+    virtual Point getOriginImage() const override;
 
-    virtual shared_ptr<Shape> copy() const;
+    virtual shared_ptr<Shape> copy() const override;
 
     virtual ~Circle() { }
 
-    virtual void draw(ostream & os = cout) const;
-    virtual void drawMLV() const;
-    virtual double surface() const;
-    virtual double perimeter() const;
-    virtual double origineDistance(const Point & p) const;
-    virtual void print(ostream & os = cout) const;
-	virtual enumShapes::Shapes getEnum() const;
+    virtual void draw(ostream & os = cout) const override;
+    virtual void drawMLV() const override;
+    virtual double surface() const override;
+    virtual double perimeter() const override;
+    virtual double origineDistance(const Point & p) const override;
+    virtual void print(ostream & os = cout) const override;
+	virtual enumShapes::Shapes getEnum() const override;
 	
 private:
     Point _center;

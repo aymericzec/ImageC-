@@ -9,7 +9,10 @@
 #include <cmath>
 #include <list>
 #include "Shapes.hpp"
+
+
 using namespace enumShapes;
+
 
 /**
  * L'image témoin est une variable de classe
@@ -27,6 +30,37 @@ shared_ptr<Shape> Image::copy() const
     return make_shared<Image>(*this);
 }
 
+list<Point *> Image::getPoints()
+{
+	list<Point *> p = {&_origin};
+	
+	return p;
+}
+
+int Image::getSize() const
+{
+	return this->_shapes.size();
+}
+
+set<shared_ptr<Shape>> Image::getShapes() const
+{
+	return this->_shapes;
+}
+
+Point Image::getOrigin() const
+{
+	return _origin;
+}
+
+Point Image::getOriginImage() const
+{
+	return _originImage;
+}
+
+Shapes Image::getEnum() const 
+{
+	return Shapes::IMAGE;
+}
 
 /**
  * ajout d' une shape à une image
@@ -34,13 +68,6 @@ shared_ptr<Shape> Image::copy() const
 void Image::add(const Shape & s)
 {
 	this->_shapes.insert(s.copy());
-}
-
-list<Point *> Image::getPoints()
-{
-	list<Point *> p = {&_origin};
-	
-	return p;
 }
 
 /**
@@ -181,22 +208,80 @@ void Image::printAux(ostream & os, int level) const
     os << "END IMAGE" << endl;
 }
 
-int Image::getSize() const
-{
-	return this->_shapes.size();
+
+
+list<shared_ptr<Shape>> Image::sortImage(function<bool(const shared_ptr<Shape> &, const shared_ptr<Shape> &)> f) {
+	
+	list<shared_ptr<Shape>> shapesList;
+
+	for(const auto & ptr: this->_shapes){
+		shapesList.push_back(ptr);
+	}
+			
+	shapesList.sort(f);
+		
+	return shapesList;
 }
 
-Point Image::getOrigin() const
-{
-	return _origin;
+list<shared_ptr<Shape>> Image::sortPerimeter (bool increase) {
+	
+	if (increase) {
+		return this->sortImage([&](const shared_ptr<Shape> & a, const shared_ptr<Shape> & b) -> bool { return a->perimeter() < b->perimeter();});
+	} else {
+		return this->sortImage([&](const shared_ptr<Shape> & a, const shared_ptr<Shape> & b) -> bool { return a->perimeter() > b->perimeter();});
+	}
 }
 
-Point Image::getOriginImage() const
-{
-	return _originImage;
+list<shared_ptr<Shape>> Image::sortSurface (bool increase) {
+	
+	if (increase) {
+		return this->sortImage([&](const shared_ptr<Shape> & a, const shared_ptr<Shape> & b) -> bool { return a->surface() < b->surface();});
+	} else {
+		return this->sortImage([&](const shared_ptr<Shape> & a, const shared_ptr<Shape> & b) -> bool { return a->surface() > b->surface();});
+	}
 }
 
-Shapes Image::getEnum() const 
-{
-	return Shapes::IMAGE;
+list<shared_ptr<Shape>> Image::sortOriginDistance (bool increase) {
+	
+	Point origin = this->getOrigin();
+		
+	if (increase) {
+		return this->sortImage([&](const shared_ptr<Shape> & a, const shared_ptr<Shape> & b) -> bool { return a->origineDistance(origin) < b->origineDistance(origin);});
+	} else {
+		return this->sortImage([&](const shared_ptr<Shape> & a, const shared_ptr<Shape> & b) -> bool { return a->origineDistance(origin) > b->origineDistance(origin);});
+	}
+}
+
+list<shared_ptr<Shape>> Image::searchShape (Shapes typeShape) {
+		
+	list<shared_ptr<Shape>> shapes;
+		
+	for (auto shape: this->_shapes) {
+		if (*shape == typeShape) {
+			shapes.push_back(shape);
+		}
+	}
+		
+	return shapes;
+}
+
+list<shared_ptr<Shape>> Image::searchPerimeter (double perimeter) {
+		
+	list<shared_ptr<Shape>> shapes;
+		
+	for (auto shape: this->_shapes) {
+		if (shape->perimeter() < perimeter) {
+			shapes.push_back(shape);
+		}
+	}
+		
+	return shapes;
+}
+
+int Image::countShape (Shapes typeShape) {
+	return searchShape(typeShape).size();
+}
+
+int Image::countPerimeter (double perimeter) {
+	return searchPerimeter(perimeter).size();
 }
