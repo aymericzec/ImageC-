@@ -1,3 +1,13 @@
+/**
+ * \file Matrice2D.cpp
+ * \brief Implémentation d'une classe représentant des transformations sur des figures.
+ * \author Zecchini.A Moreau.A Vieira Noro.K
+ * \version 1.0
+ * \date 23 Mars 2018
+ *
+ * Classe qui permet de représenter des transformations geometriques.
+ *
+ */
 #include "Matrice2D.hpp"
 #include <cmath>
 #include <list>

@@ -1,6 +1,0 @@
-<map id="Condition" name="Condition">
-<area shape="rect" id="node2" href="$class_est_petite.html" title="EstPetite" alt="" coords="5,80,81,107"/>
-<area shape="rect" id="node3" href="$class_est_un.html" title="EstUn" alt="" coords="106,80,165,107"/>
-<area shape="rect" id="node4" href="$class_et.html" title="Et" alt="" coords="188,80,227,107"/>
-<area shape="rect" id="node5" href="$class_non.html" title="Non" alt="" coords="251,80,297,107"/>
-</map>

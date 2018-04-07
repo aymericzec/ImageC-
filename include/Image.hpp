@@ -1,27 +1,25 @@
 /**
- * auteurs          : Michel Landschoot
- * mail             : direction@landsnet.com
- * date de création : 2013-12-21
- * description      : classe décrivant une image dans une hiérachie de shapes
+ * \file Image.hpp
+ * \brief Classe représentant une Image
+ * \author Zecchini.A Moreau.A Vieira Noro.K
+ * \version 1.0
+ * \date 23 Mars 2018
+ *
+ * Classe qui permet de représenter une Image, herite d'une Figure et contient des Images plus petites.
+ *
  */
-
 #ifndef __IMAGE__
 #define __IMAGE__
 
 #include "Shape.hpp"
 #include <set>
 #include <memory>
-#include "Filter.hpp"
 #include "Shapes.hpp"
 
 using namespace std;
 using namespace enumShapes;
 
-/**
- * Politique uniforme d'allocation mémoire
- * Toutes les shapes sont allouées dynamiquement
- * Une image les mémorise via un tableau de pointeurs de shapes
- */
+
 class Image : public Shape
 {
 private:
@@ -34,55 +32,125 @@ private:
      * Nombre de shapes dans une image
      */
     int _number;
-    
-    Point _originImage;
+
     /**
      * Conteneur de shapes allouées dynamiquement
      */
     set<shared_ptr<Shape>> _shapes;
     
-    
+    /**
+	 * \fn virtual list<Point *> getPoints() override
+	 * \brief Méthode privé permettant de renvoyer la liste des points de la figure.
+	 *
+	 * \param void
+	 * \return list<Point *>
+	 */
 	virtual list<Point *> getPoints() override;
 	
+	/**
+	 * \fn list<shared_ptr<Shape>> sortImage(function<bool(const shared_ptr<Shape> &, const shared_ptr<Shape> &)> f);
+	 * \brief Permet de trier une Image à partir d'une function
+	 *
+	 * \param function<bool(const shared_ptr<Shape> &, const shared_ptr<Shape> &)>
+	 * \return list<shared_ptr<Shape>> 
+	 */
 	list<shared_ptr<Shape>> sortImage(function<bool(const shared_ptr<Shape> &, const shared_ptr<Shape> &)> f);
 	
+	/**
+	 * \fn void printAux(ostream & os, int level) const
+	 * \brief Permet de faire une recursion sur une Image pour afficher ses figures
+	 *
+	 * \param ostream, int
+	 * \return void
+	 */	
 	void printAux(ostream & os, int level) const;
 
 public:
     static Image temoin;
+	/**
+	 * \fn Image (const Point & a = Point(0,0), const Point & originImage = Point(0,0))
+	 * \brief Construit une Image
+	 *
+	 * \param Point, Point
+	 * \return Image
+	 */
+    Image (const Point & a = Point(0,0)) : _origin(a), _number(0), _shapes{} {}
 
-    Image (const Point & a = Point(0,0), const Point & originImage = Point(0,0)) : _origin(a), _number(0), _originImage(originImage) , _shapes{} {}
-
-    /**
-     * contructeur de copie profonde
-     */
+	/**
+	 * \fn Image(const Image & image)
+	 * \brief Constructeur de copie
+	 *
+	 * \param const Image
+	 * \return Image
+	 */
     Image(const Image & image);
-
+    
+	/**
+	 * \fn virtual shared_ptr<Shape> copy() const override
+	 * \brief Constructeur de copie virtuelle
+	 *
+	 * \param void
+	 * \return shared_ptr<Shape>
+	 */
     virtual shared_ptr<Shape> copy() const override;
-
+    
+	/**
+	 * \fn virtual ~Image()
+	 * \brief Destructeur d'image
+	 *
+	 * \param void
+	 * \return void
+	 */
     virtual ~Image()
     {
-        
-			/**
-             * BUG si partage d'instances allouées dynamiquement
-             * ==> IL FAUT IMPLEMENTER DES COMPTEURS DE REFERENCES
-             * Dans l'implémentation proposée, les instances sont recopiées lorsqu'elles sont
-             * ajoutées dans le tableau de shapes. Il n'y a pas de partage d'instances.
-             * Dans la méthode ajouter on a :
-                  _tableau[_nombre++] = ((Shape *) &f)->copy();
-            */
-         
-        _shapes.clear();
-      }
+    
+    }
 
-
+	/**
+	 * \fn int getSize() const
+	 * \brief Renvoie le nombre de figures que contient l'image de niveau 1
+	 *
+	 * \param void
+	 * \return int
+	 */
     int getSize() const;
+    
+	/**
+	 * \fn set<shared_ptr<Shape>> getShapes() const
+	 * \brief Renvoie les figures de l'Image
+	 *
+	 * \param void
+	 * \return set<shared_ptr<Shape>>
+	 */
     set<shared_ptr<Shape>> getShapes() const;
+    
+ 	/**
+	 * \fn Point getOrigin() const
+	 * \brief Renvoie l'origine de l'image
+	 *
+	 * \param void
+	 * \return Point
+	 */
     Point getOrigin() const;
-	virtual  Point getOriginImage() const override;
+
+	/**
+	 * \fn virtual Shapes getEnum() const override
+	 * \brief Renvoie l'enum de l'image
+	 *
+	 * \param void
+	 * \return Shapes
+	 */
 	virtual Shapes getEnum() const override;
 	
-	void add(const Shape & s);
+
+	/**
+	 * \fn bool add(const Shape & s)
+	 * \brief Ajoute une figure dans l'image. N'ajoute pas si l'air est plus grande que l'image.
+	 *
+	 * \param const Shape &
+	 * \return bool
+	 */
+	bool add(const Shape & s);
 	
 	/**
 	 * 
@@ -94,81 +162,185 @@ public:
 	 * 
 	 */
 
+ 	/**
+	 * \fn virtual void translation(const Point & trans)
+	 * \brief fait une translation sur les figures de l'image
+	 *
+	 * \param const Point
+	 * \return void
+	 */
     virtual void translation(const Point & trans);
+    
+ 	/**
+	 * \fn virtual void homothety(const Point & p)
+	 * \brief 
+	 *
+	 * \param Point
+	 * \return void
+	 */
     virtual void homothety(const Point & p);
+    
+	/**
+	 * \fn virtual void rotation(const double radius)
+	 * \brief fait une rotation sur les figures de l'image
+	 *
+	 * \param double
+	 * \return void
+	 */
 	virtual void rotation(const double radius);
+	
+	/**
+	 * \fn virtual void centralSymmetry ()
+	 * \brief Fait une symetrie centrale sur les figures de l'image
+	 *
+	 * \param void
+	 * \return void
+	 */
 	virtual void centralSymmetry ();
+	
+	/**
+	 * \fn virtual void axialSymmetryX()
+	 * \brief Fait une symetrie sur X sur les figures de l'image
+	 *
+	 * \param void
+	 * \return void
+	 */
 	virtual void axialSymmetryX();
+	
+	/**
+	 * \fn virtual void axialSymmetryY()
+	 * \brief Fait une symetrie sur Y sur les figures de l'image
+	 *
+	 * \param void
+	 * \return void
+	 */
 	virtual void axialSymmetryY();
-	
-	
-    virtual void draw(ostream & os = cout) const override;
+ 
+ 	/**
+	 * \fn virtual void drawMLV() const override
+	 * \brief Dessine une image avec la bibliothèque MLV
+	 *
+	 * \param void
+	 * \return void
+	 */
     virtual void drawMLV() const override;
+ 
+ 	/**
+	 * \fn virtual double surface() const override
+	 * \brief Renvoie la somme des surfaces des figures que contient l'image
+	 *
+	 * \param void
+	 * \return double
+	 */
     virtual double surface() const override;
+  
+  	/**
+	 * \fn virtual double perimeter() const override
+	 * \brief Renvoie la somme des perimetres que contient l'image
+	 *
+	 * \param void
+	 * \return double
+	 */
     virtual double perimeter() const override;
+  
+  	/**
+	 * \fn virtual double origineDistance(const Point & p) const override
+	 * \brief Renvoie la distance entre l'origine de l'image et un point
+	 *
+	 * \param void
+	 * \return double
+	 */
     virtual double origineDistance(const Point & p) const override;
+   
+   	/**
+	 * \fn virtual void print(ostream & os = cout) const override
+	 * \brief Affiche une image dans une sortie
+	 *
+	 * \param ostreal
+	 * \return void
+	 */
     virtual void print(ostream & os = cout) const override;
     
-    
+  	/**
+	 * \fn list<shared_ptr<Shape>> sortPerimeter (bool increase = true)
+	 * \brief renvoie une liste triée des figures d'une image par perimetre
+	 *
+	 * \param bool
+	 * \return list<shared_ptr<Shape>>
+	 */
     list<shared_ptr<Shape>> sortPerimeter (bool increase = true);
+    
+	/**
+	 * \fn list<shared_ptr<Shape>> sortSurface (bool increase = true)
+	 * \brief renvoie une liste triée des figures d'une image par surface
+	 *
+	 * \param bool
+	 * \return list<shared_ptr<Shape>>
+	 */
 	list<shared_ptr<Shape>> sortSurface (bool increase = true);
+	
+	/**
+	 * \fn list<shared_ptr<Shape>> sortOriginDistance (bool increase = true)
+	 * \brief renvoie une liste triée par distance par rapport à un point
+	 *
+	 * \param void
+	 * \return list<Point *>
+	 */
 	list<shared_ptr<Shape>> sortOriginDistance (bool increase = true);
 	
-		
+	/**
+	 * \fn list<shared_ptr<Shape>> searchShape (Shapes typeShape)
+	 * \brief Renvoie une liste contenant toutes les figures d'un certain type
+	 *
+	 * \param Shapes
+	 * \return list<shared_ptr<Shape>>
+	 */		
 	list<shared_ptr<Shape>> searchShape (Shapes typeShape);
+
+	/**
+	 * \fn list<shared_ptr<Shape>> searchPerimeter (double perimeter)
+	 * \brief Renvoie une liste de figure qui contient un perimetre superieur à une valeur
+	 *
+	 * \param double
+	 * \return list<shared_ptr<Shape>>
+	 */
 	list<shared_ptr<Shape>> searchPerimeter (double perimeter);
 	
-	
+	/**
+	 * \fn int countShape (Shapes typeShape)
+	 * \brief Conte les figures d'un certain type
+	 *
+	 * \param Shapes
+	 * \return int
+	 */	
 	int countShape (Shapes typeShape);
+
+	/**
+	 * \fn int countPerimeter (double perimeter)
+	 * \brief Conte les figures superieur à un certain perimetre
+	 *
+	 * \param void
+	 * \return int
+	 */
 	int countPerimeter (double perimeter);
 	
-	
-	bool deleteShape (Shapes typeShape) {
-		
-		bool flag = false;
+	/**
+	 * \fn bool deleteShape (Shapes typeShape)
+	 * \brief Permet de supprimer les figures d'une image d'un certain type
+	 *
+	 * \param Shapes
+	 * \return bool
+	 */	
+	bool deleteShape (Shapes typeShape);
 
-		if (this->_shapes.size() == 0) {
-			return true;
-		}
-			
-		for (auto shape: this->_shapes) {
-			if (*shape == Shapes::IMAGE) {
-				shared_ptr<Image> img = dynamic_pointer_cast<Image>(shape);
-				img->deleteShape(typeShape);
-			}
-			else if (*shape == typeShape) {
-				cout << *shape << " Suppression" << endl;
-				this->_shapes.erase(shape);
-				flag = true;
-			}
-		}
-
-		return flag;		
-	}
-
-	bool deletePerimeter (double perimeter) {
-			
-		bool flag = false;
-
-		if (this->_shapes.size() == 0) {
-			return true;
-		}
-			
-		for (auto shape: this->_shapes) {
-			if (*shape == Shapes::IMAGE) {
-				shared_ptr<Image> img = dynamic_pointer_cast<Image>(shape);
-				img->deletePerimeter(perimeter);
-			}
-				
-			if (shape->perimeter() < perimeter) {
-				cout << *shape << " Suppression" << endl;
-				this->_shapes.erase(shape);
-				flag = true;
-			}
-		}
-
-		return flag;	
-	}    
+	/**
+	 * \fn bool deletePerimeter (double perimeter)
+	 * \brief Supprime les figures d'une image inférieur à un certain perimetre
+	 *
+	 * \param double
+	 * \return bool
+	 */
+	bool deletePerimeter (double perimeter);    
 };
 
 

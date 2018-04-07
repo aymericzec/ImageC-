@@ -1,10 +1,17 @@
-
-
+/**
+ * \file Circle.cpp
+ * \brief Implémentation de la classe Cercle
+ * \author Zecchini.A Moreau.A Vieira Noro.K
+ * \version 1.0
+ * \date 23 Mars 2018
+ *
+ * Classe qui permet de représenter un Cercle.
+ *
+ */
 #include "Circle.hpp"
 #include "Shapes.hpp"
 #include <cmath>
 #include <MLV/MLV_all.h>
-
 
 using namespace enumShapes;
 
@@ -30,14 +37,6 @@ shared_ptr<Shape> Circle::copy() const
 
 list<Point *> Circle::getPoints() {
 	return {&_center, &_radius};
-}
-
-/**
- * Le dessin se limite à un affichage
- */
-void Circle::draw(ostream & os) const
-{
-    os << *this << endl;;
 }
 
 void Circle::drawMLV() const
@@ -70,13 +69,12 @@ void Circle::print(ostream & os) const
     os << "cercle : (" << _center << ", " << _radius << ")" << " Perimetre: " << this->perimeter() << endl;
 }
 
-Point Circle::getOriginImage() const
-{
-	return _originImage;
-}
-
 Shapes Circle::getEnum() const 
 {
 	return Shapes::CIRCLE;
+}
+
+Point Circle::getOrigin () const {
+	return this->_center;
 }
 

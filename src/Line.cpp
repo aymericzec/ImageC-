@@ -25,7 +25,7 @@ list<Point *> Line::getPoints() {
 /**
  * La ligne témoin est une variable de classe
  */
-Line Line::temoin = Line(Point(0,0), Point(1,1), Point(0,0));
+Line Line::temoin = Line(Point(0,0), Point(1,1));
 
 /**
  * Fonction virtuelle de copie
@@ -36,7 +36,7 @@ shared_ptr<Shape> Line::copy() const
     //return new Line(this->_origine, this->_extremite);
 }
 
-Point Line::getOrigin() const
+Point Line::getBegin() const
 {
 	return _origine;
 }
@@ -44,19 +44,6 @@ Point Line::getOrigin() const
 Point Line::getExtremity() const
 {
 	return _extremite;
-}
-
-Point Line::getOriginImage() const
-{
-	return _originImage;
-}
-
-/**
- * Le dessin se limite à un affichage
- */
-void Line::draw(ostream & os) const
-{
-    os << *this << endl;;
 }
 
 void Line::drawMLV() const
@@ -69,12 +56,6 @@ void Line::print(ostream & os) const
     os << "Ligne (" << _origine << ", " << _extremite << ")" << endl;
 }
 
-/**
- * TOUR DE MAGIE GEOMETRIQUE
- * une ligne est vue pour les besoins de la cause comme
- * une segment (origine, exptremite] avec une épaisseur
- * soit un rectangle dont on peut calculer la surfade!!!!
- */
 double Line::surface() const
 {
     double distance = sqrt( (_origine.getX() - _extremite.getX()) * (_origine.getX() - _extremite.getX())
@@ -103,4 +84,8 @@ Shapes Line::getEnum() const
 	return Shapes::LINE;
 }
 
-
+Point Line::getOrigin () const {
+	int x = (this->_origine.getX() + this->_extremite.getX()) / 2;	
+	int y = (this->_origine.getY() + this->_extremite.getY()) / 2;
+	return Point(x, y);
+}

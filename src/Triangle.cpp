@@ -1,3 +1,13 @@
+/**
+ * \file Triangle.cpp
+ * \brief Implémentation d'une classe représentant un Triangle
+ * \author Zecchini.A Moreau.A Vieira Noro.K
+ * \version 1.0
+ * \date 23 Mars 2018
+ *
+ * Classe qui permet de représenter un Triangle.
+ *
+ */
 #include <cmath>
 #include "Triangle.hpp"
 #include <MLV/MLV_all.h>
@@ -8,7 +18,7 @@ using namespace enumShapes;
 /**
  * Le triangle témoin est une variable de classe
  */
-Triangle Triangle::temoin = Triangle(Point(0,0), Point(2,0), Point(1,1), Point(0,0));
+Triangle Triangle::temoin = Triangle(Point(0,0), Point(2,0), Point(1,1));
 
 Point Triangle::getA() const
 {
@@ -35,15 +45,6 @@ list<Point *> Triangle::getPoints() {
 shared_ptr<Shape> Triangle::copy() const
 {
 	return make_shared<Triangle>(*this);
-}
-
-
-/**
- * Le dessin se limite à un affichage
- */
-void Triangle::draw(ostream & os) const
-{
-    os << *this << endl;;
 }
 
 void Triangle::drawMLV() const
@@ -105,12 +106,13 @@ void Triangle::print(ostream & os) const
     os << "triangle (" << _A << ", " << _B << ", " << _C << ")" << endl;
 }
 
-Point Triangle::getOriginImage() const
-{
-	return _originImage;
-}
-
 Shapes Triangle::getEnum() const 
 {
 	return Shapes::TRIANGLE;
+}
+
+Point Triangle::getOrigin () const {
+	int x = (this->_A.getX() + this->_B.getX() + this->_C.getX())/3;
+	int y = (this->_A.getY() + this->_B.getY() + this->_C.getY())/3;
+	return Point(x, y);
 }

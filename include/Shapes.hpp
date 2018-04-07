@@ -1,3 +1,13 @@
+/**
+ * \file Shapes.hpp
+ * \brief Classe représentant une Enum de Figure
+ * \author Zecchini.A Moreau.A Vieira Noro.K
+ * \version 1.0
+ * \date 23 Mars 2018
+ *
+ * Stocke des constantes de Figures ainsi qu'une méthode statique pour convertir un nom en Enum
+ *
+ */
 #ifndef __SHAPESENUM__
 #define __SHAPESENUM__
 
@@ -5,6 +15,13 @@
 #include <string>
 
 namespace enumShapes {
+	
+	/**
+	 * \enum Shapes
+	 * \brief Constantes de Figure
+	 *
+	 * Suite de Figures: IMAGE, CIRCLE, RECTANGLE? LINE, TRIANGLE, NONE
+	 */
 	enum class Shapes { 
 		IMAGE, CIRCLE, RECTANGLE, LINE, TRIANGLE, NONE
 	};

@@ -8,7 +8,6 @@
 #include "Circle.hpp"
 #include <MLV/MLV_all.h>
 #include "ParseFile.hpp"
-#include "Filter.hpp"
 #include "Shapes.hpp"
 
 
@@ -22,7 +21,7 @@ void lineMLV() {
 	MLV_create_window("Lignes", "Lignes", width, height);
 	MLV_draw_filled_rectangle(0, 0, width, height, MLV_COLOR_BLACK);
 
-	Line l1 = Line(Point(400,300), Point(600,300), Point(500, 300));
+	Line l1 = Line(Point(400,300), Point(600,300));
 	
 	l1.drawMLV();
 	MLV_actualise_window();
@@ -97,7 +96,7 @@ void circleMLV() {
 	MLV_create_window("Cercles", "Cercles", width, height);
 	MLV_draw_filled_rectangle(0, 0, width, height, MLV_COLOR_BLACK);
 
-	Circle c1 = Circle(Point(300,300), Point(340,300), Point(300, 300));
+	Circle c1 = Circle(Point(300,300), Point(340,300));
 	
 	c1.drawMLV();
 	MLV_actualise_window();
@@ -172,7 +171,7 @@ void rectangleMLV() {
 	MLV_create_window("Rectangles", "Rectangles", width, height);
 	MLV_draw_filled_rectangle(0, 0, width, height, MLV_COLOR_BLACK);
 
-	Rectangle r1 = Rectangle(Point(400,300), Point(500,400), Point(450,350));
+	Rectangle r1 = Rectangle(Point(400,300), Point(500,400));
 	
 	r1.drawMLV();
 	MLV_actualise_window();
@@ -247,7 +246,7 @@ void triangleMLV() {
 	MLV_create_window("Triangles", "Triangles", width, height);
 	MLV_draw_filled_rectangle(0, 0, width, height, MLV_COLOR_BLACK);
 
-	Triangle t1 = Triangle(Point(300,200), Point(500,200), Point(400, 400), Point(400,300));
+	Triangle t1 = Triangle(Point(300,200), Point(500,200), Point(400, 400));
 	
 	t1.drawMLV();
 	MLV_actualise_window();
@@ -324,10 +323,10 @@ void imageMLV() {
 	
 	Image image;
 
-	Line l1 = Line(Point(400,300), Point(600,300), Point(500, 300));
-	Circle c1 = Circle(Point(300,300), Point(340,300), Point(300, 300));
-	Rectangle r1 = Rectangle(Point(400,300), Point(500,400), Point(450,350));
-	Triangle t1 = Triangle(Point(300,200), Point(500,200), Point(400, 400), Point(400,300));
+	Line l1 = Line(Point(400,300), Point(600,300));
+	Circle c1 = Circle(Point(300,300), Point(340,300));
+	Rectangle r1 = Rectangle(Point(400,300), Point(500,400));
+	Triangle t1 = Triangle(Point(300,200), Point(500,200), Point(400, 400));
 	
 	image.add(l1);
 	image.add(c1);
@@ -406,8 +405,9 @@ void readFile () {
 	
 	MLV_create_window("Figures géométriques", "Figures géométriques", width, height); 
 	
-	shared_ptr<Shape> shape = ParseFile::parseFile("./test/image1.txt");
+	shared_ptr<Shape> shape = ParseFile::parseFile("./Images/image1.txt");
 	shape->drawMLV();
+	cout << shape->getOrigin() << endl;
 	MLV_actualise_window();
 	
 	int a;
@@ -421,15 +421,15 @@ void readFile () {
 
 void filter () {
 	
-	Image image(Point(500,500), Point(500,500));
+	Image image(Point(500,500));
 	image.add(Circle(Point(100,100), Point(500,500)));
 	image.add(Rectangle(Point(200,200), Point(600,600)));
 	
-	Image image2(Point(500,500), Point(600,600));
+	Image image2(Point(500,500));
 	image2.add(Circle(Point(500,500), Point(800,800)));
 	
 	image.add(image2);
-	image.add(Image(Point(500,500), Point(500,500)));
+	image.add(Image(Point(500,500)));
 	image.add(Circle(Point(500,500), Point(800,800)));
 	image.add(Rectangle(Point(200,200), Point(600,600)));
 

@@ -1,30 +1,24 @@
 /**
- * auteurs          : Michel Landschoot
- * mail             : direction@landsnet.com
- * date de création : 2013-12-21
- * description      : impléméntation d'une classe décrivant une Image dans une hiérachie de shapes
+ * \file Image.cpp
+ * \brief Implémentation d'une classe représentant une Image
+ * \author Zecchini.A Moreau.A Vieira Noro.K
+ * \version 1.0
+ * \date 23 Mars 2018
+ *
+ * Classe qui permet de représenter une Image, herite d'une Figure et contient des Images plus petites.
+ *
  */
-
 #include "Image.hpp"
 #include <cmath>
 #include <list>
 #include "Shapes.hpp"
 
-
 using namespace enumShapes;
 
-
-/**
- * L'image témoin est une variable de classe
- */
 Image Image::temoin = Image();
 
+Image::Image(const Image & image) : _origin(image._origin), _number(image._number), _shapes(image._shapes) {}
 
-Image::Image(const Image & image) : _origin(image._origin), _number(image._number), _originImage(image.getOriginImage()), _shapes(image._shapes) {}
-
-/**
- * Fonction virtuelle de copie
- */
 shared_ptr<Shape> Image::copy() const
 {
     return make_shared<Image>(*this);
@@ -52,28 +46,21 @@ Point Image::getOrigin() const
 	return _origin;
 }
 
-Point Image::getOriginImage() const
-{
-	return _originImage;
-}
-
 Shapes Image::getEnum() const 
 {
 	return Shapes::IMAGE;
 }
 
-/**
- * ajout d' une shape à une image
- */
-void Image::add(const Shape & s)
+bool Image::add(const Shape & s)
 {
+	if (s.surface() > this->surface() && s == Shapes::IMAGE) {
+		return false;
+	}
+	
 	this->_shapes.insert(s.copy());
+	return true;
 }
 
-/**
- * Déplacement-translation de valeur le point p
- * toutes les shapes de l'image sont également déplacées
- */
 void Image::translation(const Point & p)
 {
     _origin += p;
@@ -118,17 +105,6 @@ void Image::axialSymmetryY()
 	}
 }
 
-/**
- * Le dessin se limite à un affichage
- */
-void Image::draw(ostream & os) const
-{
-    os << *this << endl;
-}
-
-/**
- * Le dessin se limite à un affichage
- */
 void Image::drawMLV() const
 {
     for (auto shape: this->_shapes) {
@@ -208,8 +184,6 @@ void Image::printAux(ostream & os, int level) const
     os << "END IMAGE" << endl;
 }
 
-
-
 list<shared_ptr<Shape>> Image::sortImage(function<bool(const shared_ptr<Shape> &, const shared_ptr<Shape> &)> f) {
 	
 	list<shared_ptr<Shape>> shapesList;
@@ -285,3 +259,49 @@ int Image::countShape (Shapes typeShape) {
 int Image::countPerimeter (double perimeter) {
 	return searchPerimeter(perimeter).size();
 }
+
+bool Image::deleteShape (Shapes typeShape) {
+	
+	bool flag = false;
+
+	if (this->_shapes.size() == 0) {
+		return true;
+	}
+		
+	for (auto shape: this->_shapes) {
+		if (*shape == Shapes::IMAGE) {
+			shared_ptr<Image> img = dynamic_pointer_cast<Image>(shape);
+			img->deleteShape(typeShape);
+		}
+		else if (*shape == typeShape) {
+			cout << *shape << " Suppression" << endl;
+			this->_shapes.erase(shape);
+			flag = true;
+		}
+	}
+
+	return flag;		
+}
+
+bool Image::deletePerimeter (double perimeter) {
+	bool flag = false;
+
+	if (this->_shapes.size() == 0) {
+		return true;
+	}
+		
+	for (auto shape: this->_shapes) {
+		if (*shape == Shapes::IMAGE) {
+			shared_ptr<Image> img = dynamic_pointer_cast<Image>(shape);
+			img->deletePerimeter(perimeter);
+		}
+			
+		if (shape->perimeter() < perimeter) {
+			cout << *shape << " Suppression" << endl;
+			this->_shapes.erase(shape);
+			flag = true;
+		}
+	}
+
+	return flag;	
+} 

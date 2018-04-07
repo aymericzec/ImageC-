@@ -1,15 +1,14 @@
 /**
- * auteurs          : Michel Landschoot
- * mail             : direction@landsnet.com
- * date de création : 2013-12-21
- * description      : impléméntation d'une classe décrivant un point
+ * \file Point.cpp
+ * \brief Implémentation d'une classe représentant un Point
+ * \author Zecchini.A Moreau.A Vieira Noro.K
+ * \version 1.0
+ * \date 23 Mars 2018
+ *
+ * Classe qui permet de représenter un Point.
+ *
  */
-
 #include "Point.hpp"
-
-Point::Point(int a, int b) : x(a), y(b)
-{
-}
 
 int Point::Point::getX() const
 {

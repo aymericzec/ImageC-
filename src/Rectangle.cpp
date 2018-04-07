@@ -1,3 +1,13 @@
+/**
+ * \file Rectangle.cpp
+ * \brief Implémentation d'une classe représentant un Rectangle
+ * \author Zecchini.A Moreau.A Vieira Noro.K
+ * \version 1.0
+ * \date 23 Mars 2018
+ *
+ * Classe qui permet de représenter un Rectangle.
+ *
+ */
 #include <cmath>
 #include "Rectangle.hpp"
 #include <list>
@@ -9,7 +19,7 @@ using namespace enumShapes;
 /**
  * Le rectangle témoin est une variable de classe
  */
-Rectangle Rectangle::temoin = Rectangle(Point(0,0), Point(2,2), Point(0,0));
+Rectangle Rectangle::temoin = Rectangle(Point(0,0), Point(2,2));
 
 list<Point *> Rectangle::getPoints() {
 	return {&_A, &_B, &_C, &_D};
@@ -44,13 +54,6 @@ shared_ptr<Shape> Rectangle::copy() const
 	return make_shared<Rectangle>(*this);
 }
 
-/**
- * Le dessin se limite à un affichage
- */
-void Rectangle::draw(ostream & os) const
-{
-    os << *this << endl;;
-}
 
 void Rectangle::drawMLV() const
 {
@@ -74,12 +77,6 @@ double Rectangle::surface() const
 					
 	return l * L;	
 }
-
-Point Rectangle::getOriginImage() const
-{
-	return _originImage;
-}
-
 
 double Rectangle::perimeter() const 
 {
@@ -108,4 +105,10 @@ void Rectangle::print(ostream & os) const
 Shapes Rectangle::getEnum() const 
 {
 	return Shapes::RECTANGLE;
+}
+
+Point Rectangle::getOrigin () const {
+	int x = (this->_A.getX() + this->_D.getX()) / 2;
+	int y = (this->_A.getY() + this->_D.getY()) / 2;
+	return Point(x, y);
 }
