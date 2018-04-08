@@ -1,0 +1,7 @@
+<map id="Shape" name="Shape">
+<area shape="rect" id="node2" href="$class_circle.html" title="Circle" alt="" coords="5,80,61,107"/>
+<area shape="rect" id="node3" href="$class_image.html" title="Image" alt="" coords="85,80,144,107"/>
+<area shape="rect" id="node4" href="$class_line.html" title="Line" alt="" coords="169,80,215,107"/>
+<area shape="rect" id="node5" href="$class_rectangle.html" title="Rectangle" alt="" coords="239,80,321,107"/>
+<area shape="rect" id="node6" href="$class_triangle.html" title="Triangle" alt="" coords="345,80,413,107"/>
+</map>

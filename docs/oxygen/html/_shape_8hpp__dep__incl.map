@@ -1,0 +1,16 @@
+<map id="/home/myfou/Bureau/Projet C++/Projet C++/include/Shape.hpp" name="/home/myfou/Bureau/Projet C++/Projet C++/include/Shape.hpp">
+<area shape="rect" id="node2" href="$_circle_8hpp.html" title="Classe représentant un Cercle. " alt="" coords="498,109,644,165"/>
+<area shape="rect" id="node3" href="$_parse_file_8hpp.html" title="Classe permettant de parser un fichier en une Figure. " alt="" coords="609,213,776,269"/>
+<area shape="rect" id="node4" href="$_parse_file_8cpp.html" title="ImplÃ©mentation d&#39;une classe permettant de parser un fichier contenant des figures. " alt="" coords="220,317,364,373"/>
+<area shape="rect" id="node6" href="$_image_8hpp.html" title="Classe représentant une Image. " alt="" coords="89,109,237,165"/>
+<area shape="rect" id="node8" href="$_line_8hpp.html" title="Classe représentant une Ligne. " alt="" coords="902,109,1045,165"/>
+<area shape="rect" id="node11" href="$_rectangle_8hpp.html" title="Classe reprÃ©sentant un Rectangle. " alt="" coords="303,109,474,165"/>
+<area shape="rect" id="node13" href="$_triangle_8hpp.html" title="Classe reprÃ©sentant un Triangle. " alt="" coords="720,109,878,165"/>
+<area shape="rect" id="node15" href="$_shape_8cpp.html" title="Implementation d&#39;une classe reprÃ©sentant une Figure. " alt="" coords="1069,109,1212,165"/>
+<area shape="rect" id="node5" href="$_circle_8cpp.html" title="Implémentation de la classe Cercle. " alt="" coords="390,213,533,269"/>
+<area shape="rect" id="node7" href="$_image_8cpp.html" title="Implémentation d&#39;une classe représentant une Image. " alt="" coords="52,213,194,269"/>
+<area shape="rect" id="node9" href="$_line_8cpp.html" title="Implementation d&#39;une ligne. " alt="" coords="966,213,1109,269"/>
+<area shape="rect" id="node10" href="$_matrice2_d_8cpp.html" title="ImplÃ©mentation d&#39;une classe reprÃ©sentant des transformations sur des figures. " alt="" coords="1132,213,1282,269"/>
+<area shape="rect" id="node12" href="$_rectangle_8cpp.html" title="ImplÃ©mentation d&#39;une classe reprÃ©sentant un Rectangle. " alt="" coords="218,213,366,269"/>
+<area shape="rect" id="node14" href="$_triangle_8cpp.html" title="ImplÃ©mentation d&#39;une classe reprÃ©sentant un Triangle. " alt="" coords="800,213,942,269"/>
+</map>

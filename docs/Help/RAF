@@ -1,0 +1,35 @@
+Redefinir + pour POint
+
+COuleur fichier
+
+Enlever originImage sert plus à rien
+
+Faire filtrage
+
+tenter des rotations sur certaine partie
+
+Faire un scénario de test/Main
+
+Commentaire pour oxygen
+
+bien renommée
+
+mettre code .hpp dans .cpp
+
+ordonnée les methodes hpp et cpp
+
+Tester que l'aire de l'image insérer est bien plus petite
+
+Architecture:
+	container set donc pas de tri, renvoie liste
+	pas de classe filtrage
+
+Predicat:
+	L'intérêt des prédicats est qu'ils peuvent être utilisés comme critère d'évaluation dans bon nombre d'algorithmes et conteneurs de la STL. Par exemple le conteneur std::set utilise par défaut le prédicat std::less afin d'organiser ses éléments de manière croissante. Il est facile de changer ce critère pour créer un std::set organisé de manière décroissante en spécifiant std::greater.
+
+Verifier libération
+
+Mettre des espaces de noms partout
+
+
+Mettre des overides
