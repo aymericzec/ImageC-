@@ -518,7 +518,7 @@ void demo(){
     image2.drawMLV();
     MLV_actualise_window();
      
-    cout << "Image 2 : Triangle : symetrie central" << endl;
+    cout << "Image 2 : Récupère un triangle Image 2 et fait: symetrie central" << endl;
     MLV_wait_keyboard( &touche, NULL, NULL );
     //Récupère le premier triangle
     list<shared_ptr<Shape>> l = image2.searchShape(Shapes::TRIANGLE);
@@ -543,8 +543,15 @@ void demo(){
     image.drawMLV();
     image2.drawMLV();
     MLV_actualise_window();
-     
- 
+    
+    cout << "Perimetre 1" << image.perimeter() << " Perimetre2: " << image2.perimeter() << endl; 
+	
+	cout << "Suppression d'un cercle de l'image 1: " << image.deleteShape(Shapes::CIRCLE) << endl;
+	MLV_clear_window(MLV_COLOR_BLACK);
+    image.drawMLV();
+    image2.drawMLV();
+	MLV_actualise_window();
+	
     cout << "Appuyez sur une touche pour terminer" << endl;
     MLV_wait_keyboard( &touche, NULL, NULL );
     MLV_free_window();
